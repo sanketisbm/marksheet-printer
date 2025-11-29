@@ -1,0 +1,32 @@
+{
+    "calibri": {
+        "normal": "\/home\/complianceuser\/public_html\/assets\/fonts\/\/calibri_normal_2533b62bd784313ba2bd80d6e284e088",
+        "bold": "\/home\/complianceuser\/public_html\/assets\/fonts\/\/calibri_bold_e7e66ad14c907bb2b8d5401f10bc53c7",
+        "italic": "\/home\/complianceuser\/public_html\/assets\/fonts\/\/calibri_italic_31017528e815eb4698072f4c7ccdd70d",
+        "bold_italic": "calibri_bold_italic_a4ff1697646e4283998ae28d0066ff08"
+    },
+    "arial": {
+        "normal": "\/home\/complianceuser\/public_html\/assets\/fonts\/\/arial_normal_388e9868752fb5aa50e9bed37e657df8",
+        "bold": "\/home\/complianceuser\/public_html\/assets\/fonts\/\/arial_bold_6242faec9acdd5cb3fef93b4632fd7d0",
+        "italic": "\/home\/complianceuser\/public_html\/assets\/fonts\/\/arial_italic_93a4117229725ca12781d78115804938",
+        "bold_italic": "arial_bold_italic_74795d04dd0c977fbb35a3be3be10fee"
+    },
+    "krutidev": {
+        "normal": "krutidev_normal_334d47053141118f21e2e9a7a7da96b0"
+    },
+    "nirmala ui": {
+        "normal": "nirmala_ui_normal_7b92d9e641aaa9bdf60e7cbb2f4673a5"
+    },
+    "mangal": {
+        "normal": "mangal_normal_bd94105af1f192aaaad16806afdeeb0f"
+    },
+    "noto sans devanagari": {
+        "normal": "noto_sans_devanagari_normal_81b5854cfd0c7bb4a07984f441f0eb61"
+    },
+    "shreedevanagari714": {
+        "normal": "shreedevanagari714_normal_e5df5e1a000d9dcd4eb36ace4eab1361"
+    },
+    "lohit-devanagari": {
+        "normal": "lohit_devanagari_normal_0d2d5b782fe3ae23dfad08e510fab0bf"
+    }
+}

@@ -1,0 +1,370 @@
+body {
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: 14.67px !important;
+}
+#scrollableView {
+  width: 808.062px;
+}
+.canvas-container {
+  width: 21.38cm;
+  height: 30.48cm;
+  /* margin: 2rem auto; */
+  border: 1px solid #ececec;
+  padding: 25px;
+  justify-content: center;
+  display: flex;
+}
+
+.marksheet.m-3 {
+  position: absolute;
+  top: 203.71px;
+}
+
+p {
+  line-height: 1;
+}
+
+.result-container {
+  /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  border: 3px solid #06355f;
+  width: 20cm !important;
+  height: 28.5cm !important;
+  padding: 0.5cm !important;
+  justify-content: space-between;
+}
+.logo {
+  display: flex;
+}
+.logo img {
+  /* width: 40%; */
+  height: 2.7cm;
+  margin: auto;
+  margin-top: 0.7cm !important;
+  margin-bottom: 0.7cm !important;
+}
+.tagline {
+  background: #06355f;
+  color: #fff;
+  text-align: center;
+  height: 0.9cm;
+  display: flex;
+  align-items: center;
+  font-size: 8.2pt;
+  /* font-family: "CalibriWeb", "Calibri", "Arial", sans-serif !important; */
+  font-family: "Calibri", "Arial", sans-serif !important;
+}
+
+.program_print_name {
+  font-size: 14pt !important;
+  font-weight: 700 !important;
+}
+
+.right-box {
+  width: fit-content !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding: 0 !important;
+  margin-right: 1rem;
+  margin-left: auto;
+}
+.left-box {
+  width: 70% !important;
+  padding: 0 !important;
+}
+.right-box p,
+.left-box p {
+  margin-bottom: 6.67px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.right-box img {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: auto;
+}
+
+.custom-margin-bottom {
+  margin-bottom: 3.67px !important;
+}
+
+.table {
+  /* font-family: "CalibriWeb", "Calibri", "Arial", sans-serif !important; */
+  font-family: "Calibri", "Arial", sans-serif !important;
+}
+
+/* .table > :not(:last-child) > :last-child > * {
+    border-bottom: unset !important;
+} */
+
+.column-87 {
+  width: 2.31cm !important;
+  white-space: wrap !important;
+  height: 1.8cm !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+th.column-336 {
+  width: 8.88cm !important;
+  white-space: wrap !important;
+  height: 43px !important;
+  vertical-align: middle !important;
+}
+th.column-47 {
+  width: 1.25cm !important;
+  white-space: wrap !important;
+  vertical-align: middle !important;
+}
+td.column-47 {
+  width: 1.25cm !important;
+  white-space: wrap !important;
+  height: 26px !important;
+  vertical-align: middle !important;
+}
+.column-57 {
+  width: 1.5cm !important;
+  white-space: wrap !important;
+  height: 26px !important;
+  vertical-align: middle !important;
+}
+td,
+th {
+  text-align: center !important;
+  vertical-align: middle !important;
+  line-height: 1.3 !important;
+}
+
+.table.table-marks td,
+.table.table-marks th {
+  padding: 0;
+}
+
+.font-12pt {
+  font-size: 16px !important;
+}
+.font-11pt {
+  font-size: 11pt !important;
+}
+.font-11-5pt {
+  font-size: 15.33px !important;
+}
+.font-10pt {
+  font-size: 13.33px !important;
+}
+.inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 983px;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+.authority-info {
+  /* position: absolute;
+    bottom: 56.69px; */
+  display: flex;
+  justify-content: space-between;
+  /* width: 100%; */
+  margin-top: auto !important;
+}
+
+img.RITU {
+  width: 66.89px !important;
+  height: 55.93px !important;
+}
+
+img.MANOJ {
+  width: 113px !important;
+  height: 55.93px !important;
+}
+
+img.MADHU {
+  width: 119.16px !important;
+  height: 61.98px !important;
+}
+.marksheet-footer {
+  /* position: absolute;
+    bottom: 0; */
+  height: 45.35px;
+  border-top: 3.77px solid #a82682;
+  display: flex;
+  flex-direction: column;
+  /* width: 100%; */
+  text-align: center;
+  justify-content: center;
+  /* font-family: "CalibriWeb", "Calibri", "Arial", sans-serif !important; */
+  font-family: "Calibri", "Arial", sans-serif !important;
+}
+
+.marksheet-footer p {
+  margin: 0;
+  height: fit-content;
+  font-weight: bold;
+  font-size: 12pt;
+}
+.text-blue {
+  color: #06355f;
+}
+.font-14-5pt {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 19.33px;
+}
+/* consilidated table */
+.h-0-5 {
+  height: 18.89px !important;
+}
+
+.col-2-semHeader {
+  width: 2.33cm !important;
+}
+.col-2-semNo {
+  width: 3.33cm !important;
+}
+.col-2-resDiv {
+  width: 3.33cm !important;
+}
+
+.col-3-semHeader {
+  width: 2.33cm !important;
+}
+.col-3-semNo {
+  width: 2.62cm !important;
+}
+.col-3-resDiv {
+  width: 3.2cm !important;
+}
+
+.col-4-semHeader {
+  width: 2.31cm !important;
+}
+.col-4-semNo {
+  width: 2cm !important;
+}
+.col-4-resDiv {
+  width: 2.87cm !important;
+}
+
+.col-6-semHeader {
+  width: 2.31cm !important;
+}
+.col-6-semNo {
+  width: 1.5cm !important;
+}
+.col-6-resDiv {
+  width: 2.6cm !important;
+}
+
+.col-8-semHeader {
+  width: 2.31cm !important;
+}
+.col-8-semNo {
+  width: 1.13cm !important;
+}
+.col-8-GT {
+  width: 2.6cm !important;
+}
+.col-8-resDiv {
+  width: 2.4cm !important;
+}
+
+.col-10-semHeader {
+  width: 2.31cm !important;
+}
+.col-10-semNo {
+  width: 0.96cm !important;
+}
+.col-10-GT {
+  width: 2.52cm !important;
+}
+.col-10-resDiv {
+  width: 2.26cm !important;
+}
+
+button.btn.btn-primary.btn-icon-text.print,
+h4.card-title {
+  width: fit-content;
+}
+table.table.table-marks td {
+  border-bottom: 1px solid black !important;
+  border-right: 1px solid black !important;
+}
+table.table.table-marks th {
+  border-bottom: 1px solid black !important;
+  border-right: 1px solid black !important;
+  border-top: 1px solid black !important;
+}
+.table > :not(:last-child) > :last-child > * {
+  border-bottom-color: inherit;
+}
+table.table.table-marks th.border-top-0 {
+  border-top: 0 !important;
+}
+table.table.table-marks .border-start-1 {
+  border-left: 1px solid black !important;
+}
+.table-bordered > :not(caption) > * > * {
+  border-width: 0 1px 0 0 !important;
+}
+
+table.table.table-marks tr {
+  border: none !important;
+}
+.t-marks-row {
+  margin-top: 0.3cm !important;
+  margin-bottom: 0 !important;
+}
+.pn-col-1 {
+  width: 5.11cm;
+  font-weight: bold;
+  text-align: start !important;
+}
+.pn-col-2 {
+  width: 8.1cm;
+  font-weight: bold;
+  text-align: start !important;
+}
+.pn-col-3 {
+  width: 3cm;
+  font-weight: bold;
+  text-align: start !important;
+}
+.pn-col-4 {
+  width: 2.5cm;
+  font-weight: bold;
+  text-align: start !important;
+}
+.p-info-mn {
+  margin-top: 3rem !important;
+}
+.w-2-5 {
+  width: 2.5cm !important;
+}
+
+.w-5-7 {
+  width: 5.7cm !important;
+}
+.fit-content {
+  width: fit-content !important;
+}
+/* .margin-0-5 {
+  margin-left: 0.3cm !important;
+  margin-right: 0.7cm !important;
+} */
+.table.table-times-new-roman {
+  font-family: "Times New Roman", Times, serif !important;
+}
+.table td img {
+  border-radius: unset !important;
+}
+.table{
+    width: 18.92cm !important;
+}
+.table td {
+    /* padding: 0 !important; */
+    border: none !important;
+}
