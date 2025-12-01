@@ -7,6 +7,12 @@
       </a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="document-requests">
+        <i class="icon-file menu-icon"></i>
+        <span class="menu-title">Document Requests</span>
+      </a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="logout">
         <i class="icon-lock menu-icon"></i>
         <span class="menu-title">Logout</span>

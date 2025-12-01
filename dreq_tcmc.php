@@ -134,6 +134,7 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
                 type: "GET",
                 data: {
                     dateRange: dateRange,
+                    type: "transcript",
                 },
                 dataType: "json",
                 success: function(response) {

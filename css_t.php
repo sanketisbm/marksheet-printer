@@ -1,0 +1,209 @@
+<!-- css_t.php -->
+<style>
+    @font-face {
+        font-family: 'Calibri';
+        src: url('assets/fonts/Calibri.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Calibri';
+        src: url('assets/fonts/calibrib.ttf') format('truetype');
+        font-weight: bold;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Calibri';
+        src: url('assets/fonts/calibrii.ttf') format('truetype');
+        font-weight: normal;
+        font-style: italic;
+    }
+
+    @font-face {
+        font-family: 'Calibri';
+        src: url('assets/fonts/calibriz.ttf') format('truetype');
+        font-weight: bold;
+        font-style: italic;
+    }
+
+    @font-face {
+        font-family: 'KrutiDev';
+        src: url('assets/fonts/krutidev-010-hindi-font-download.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Nirmala UI';
+        src: url('assets/fonts/Nirmala.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Mangal';
+        src: url('assets/fonts/MANGAL.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Noto Sans Devanagari';
+        src: url('assets/fonts/NotoSansDevanagari.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-feature-settings: "liga" 1;
+    }
+
+    @font-face {
+        font-family: 'ShreeDevanagari714';
+        src: url('assets/fonts/ShreeDevanagari714.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Lohit-Devanagari';
+        src: url('assets/fonts/Lohit-Devanagari.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    /* Dompdf page box – no margins */
+    @page {
+        margin: 0cm;
+        padding: 0;
+    }
+
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-family: Calibri, sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+        color: #111;
+        background-color: #fff;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    table {
+        caption-side: bottom;
+        border-collapse: collapse;
+    }
+
+    td,
+    th {
+        border: 1px solid #111 !important;
+        vertical-align: middle !important;
+    }
+
+    .table {
+        font-family: Calibri, sans-serif !important;
+    }
+
+    .table td,
+    .table th {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .table tbody td {
+        line-height: 0.8 !important;
+    }
+
+    .table th {
+        line-height: 0.7 !important;
+    }
+
+    .footer-total {
+        vertical-align: text-top !important;
+        font-size: 10pt !important;
+    }
+
+    .fontCalibri {
+        font-family: 'Calibri', sans-serif !important;
+    }
+
+    .fontkrutidev {
+        font-family: 'KrutiDev', sans-serif !important;
+    }
+
+    .d-flex {
+        display: flex !important;
+        width: 100%;
+        flex-direction: row;
+    }
+
+    .text-start {
+        text-align: start !important;
+    }
+
+    .text-end {
+        text-align: end !important;
+    }
+
+    .text-center {
+        text-align: center !important;
+    }
+
+    .border {
+        border: 1px solid #111 !important;
+    }
+
+    /* ---------- A4 Transcript Layout ---------- */
+
+    .transcript-container {
+        width: 21cm;
+        height: auto;
+        min-height: 26cm;
+        padding: 0.8cm 2cm 1.3cm 2cm;
+        position: relative;
+        box-sizing: border-box;
+        margin: 0 auto;
+    }
+
+    .transcript-container {
+        page-break-inside: avoid;
+    }
+
+
+    .marksheet {
+        margin-top: 3.4cm;
+    }
+
+    /* Signature text at bottom-right of each student's LAST page */
+    .coe-sign {
+        position: absolute;
+        right: 7cm;
+        bottom: 1.3cm;
+        font-weight: bold;
+        font-size: 11pt;
+        font-family: "Times New Roman", Times, serif !important;
+    }
+
+    /* just for preview container in browser */
+    #scrollableView {
+        width: 21cm !important;
+        margin: 0 auto;
+    }
+
+    @media print {
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .marksheet table,
+        .marksheet tr,
+        .marksheet td,
+        .marksheet th {
+            page-break-inside: avoid;
+        }
+    }
+</style>

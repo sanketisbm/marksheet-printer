@@ -55,6 +55,7 @@ $dompdf->setPaper([0, 0, 595, 842], 'portrait'); // 21.38 cm x 30.48 cm converte
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
     $content = $_POST['content']; // Get content to render the PDF
     ob_start();
+    include 'css_t.php';
     $css = ob_get_clean();
 
     $content = $css . $content;
@@ -68,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
 
         $dompdf->loadHtml($content);
         $dompdf->render();
-        $pdfOutputPath = "transcripts/" . date('Ymd') . "_" . time() . "_" . 'transcripts.pdf';
+        $pdfOutputPath = "transcripts/" . date('Ymd') . "_" . time() . "_" . 'transcript.pdf';
 
         file_put_contents($pdfOutputPath, $dompdf->output());
         echo json_encode(['success' => true, 'message' => 'PDF generated successfully', 'pdf_path' => $pdfOutputPath]);

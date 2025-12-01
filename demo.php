@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 $idsList = $_GET['param'];
 $idsList = preg_replace('/[^0-9,]/', '', $idsList);
 
-$sql = "SELECT * FROM transcript_request 
+$sql = "SELECT * FROM document_requests 
         WHERE id IN ($idsList) 
         ORDER BY enrollment_no, print_flag ASC";
 
@@ -35,7 +35,7 @@ while ($row = mysqli_fetch_assoc($transcript)) {
     // Initialize container
     if (!isset($grouped[$enroll])) {
         $grouped[$enroll] = [
-            "transcript_request" => $row,
+            "document_requests" => $row,
             "student_info" => [],
             "results" => []
         ];

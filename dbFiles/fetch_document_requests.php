@@ -29,7 +29,7 @@ if (!empty($_SESSION["filterQuery"])) {
     $startDate = mysqli_real_escape_string($conn, $startDate);
     $endDate = mysqli_real_escape_string($conn, $endDate);
 
-    $getLeadquery = "SELECT * FROM `transcript_request` WHERE DATE(created_at) BETWEEN '$startDate' AND '$endDate' AND `print_flag` = 0 ORDER BY `student_name`, `print_flag` ASC";
+    $getLeadquery = "SELECT * FROM `document_requests` WHERE DATE(created_at) BETWEEN '$startDate' AND '$endDate' AND `print_flag` = 0 ORDER BY `student_name`, `print_flag` ASC";
     
    // $getLeadquery = "SELECT * FROM `transcript` WHERE DATE(created_at) BETWEEN '$startDate' AND '$endDate' AND `print_flag` = 0 ORDER BY `application_id`, `print_flag` ASC";
 }

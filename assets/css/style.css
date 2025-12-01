@@ -11855,7 +11855,7 @@ p {
   /* justify-content: space-between; */
 }
 
-.transcript-container {
+/* .transcript-container {
   position: relative !important;
   display: flex;
   flex-direction: column;
@@ -11867,7 +11867,7 @@ p {
   background: url('../images/bc.jpg');
   background-position: center;
   background-size: cover;
-}
+} */
 
 .logo {
   display: flex;

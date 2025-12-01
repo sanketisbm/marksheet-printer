@@ -8,12 +8,12 @@ RewriteRule ^vendor/phpmailer/phpmailer/$ /error-500.php [L]
 RewriteRule ^assets/partials/$ /error-500.php [L]
 
 RewriteRule ^generated-marksheets$ marksheet.php [L]
-RewriteRule ^generated-transcripts$ generated-transcripts.php [L]
+RewriteRule ^generated-documents$ generated-documents.php [L]
 
 RewriteRule ^results$ results.php [L]
 RewriteRule ^login$ login.php [L]
 RewriteRule ^logout$ logout.php [L]
-RewriteRule ^transcript$ transcript.php [L]
+RewriteRule ^document-requests$ document_requests.php [L]
 
 RewriteRule ^action-filters$ dbFiles/filter_lead.php [L]
 RewriteRule ^eligibility$ dbFiles/eligibility_check_approve_request.php [L]

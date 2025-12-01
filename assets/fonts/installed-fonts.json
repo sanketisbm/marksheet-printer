@@ -5,12 +5,6 @@
         "italic": "C:\\xampp\\htdocs\\marksheet-printer\/assets\/fonts\/\/calibri_italic_318d58bb39acd58463cb0fce89c1a727",
         "bold_italic": "calibri_bold_italic_63ad080775e4632f5fb1996058f8e578"
     },
-    "arial": {
-        "normal": "C:\\xampp\\htdocs\\marksheet-printer\/assets\/fonts\/\/arial_normal_3e5d3a946f8ec409ee7d2044ce0c2fb5",
-        "bold": "C:\\xampp\\htdocs\\marksheet-printer\/assets\/fonts\/\/arial_bold_aa5323f91019eb8c1f9b4f9401e396b7",
-        "italic": "C:\\xampp\\htdocs\\marksheet-printer\/assets\/fonts\/\/arial_italic_d7b6ce062e4e980a86717eecc3af447a",
-        "bold_italic": "arial_bold_italic_8d73ca7c19b1387115fdd88b6e542ee4"
-    },
     "krutidev": {
         "normal": "krutidev_normal_5f704cb144d5068fd6e03548621d1b9b"
     },
