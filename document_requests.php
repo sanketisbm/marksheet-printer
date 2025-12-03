@@ -31,7 +31,7 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
                 <div class="content-wrapper">
                     <div class="card overflow-hidden p-4" style="height: 80vh">
                         <div class="row justify-content-between mb-4 mx-0">
-                            <h4 class="card-title">Transcript</h4>
+                            <h4 class="card-title">Document Requests</h4>
                             <div class="col-lg-4 col-md-4 p-0">
                                 <input type="text" id="date-range"
                                     class="btn btn-light bg-white dropdown-toggle text-right ml-auto d-flex" />
@@ -228,7 +228,7 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
         });
 
         $(".download-csv").on("click", function() {
-            downloadCSV2("#documentRequestsTableBody", "Transcript Data.csv");
+            downloadCSV2("#documentRequestsTableBody", "Document Requests Data.csv");
             alert("Your data has been downloaded.");
         });
 

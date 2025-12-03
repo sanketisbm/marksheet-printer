@@ -80,7 +80,6 @@
     body {
         margin: 0 !important;
         padding: 0 !important;
-        font-family: Calibri, sans-serif;
         font-size: 1rem;
         font-weight: 400;
         color: #111;
@@ -170,6 +169,21 @@
     }
 
 
+    .doc-container {
+        width: 21cm;
+        height: auto;
+        min-height: 26cm;
+        padding: 0.8cm 2cm 1.3cm 2cm;
+        position: relative;
+        box-sizing: border-box;
+        margin: 0 auto;
+    }
+
+    .doc-container {
+        page-break-inside: avoid;
+    }
+
+
     .marksheet {
         margin-top: 3.4cm;
     }
@@ -205,5 +219,10 @@
         .marksheet th {
             page-break-inside: avoid;
         }
+    }
+
+    p {
+        margin: 0;
+        text-align: justify;
     }
 </style>
