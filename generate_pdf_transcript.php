@@ -40,12 +40,18 @@ $options->set('fontCache', $fontCacheDir);
 $dompdf->getOptions()->set('chroot', __DIR__);
 $fontMetrics = $dompdf->getFontMetrics();
 $fontMetrics->getFont('calibri', $fontDir . 'calibri.ttf');
-$fontMetrics->getFont('calibri', $fontDir . 'calibri.ttf');
 $fontMetrics->getFont('calibri-bold', $fontDir . 'calibrib.ttf');
 $fontMetrics->getFont('calibri-italic', $fontDir . 'calibrii.ttf');
 $fontMetrics->getFont('calibri-bold-italic', $fontDir . 'calibriz.ttf');
 
+// Add Arial fonts
+$fontMetrics->getFont('arial', $fontDir . 'arial.ttf');
+$fontMetrics->getFont('arial-bold', $fontDir . 'arialbd.ttf');
+$fontMetrics->getFont('arial-italic', $fontDir . 'ariali.ttf');
+$fontMetrics->getFont('arial-bold-italic', $fontDir . 'arialbi.ttf');
+
 // Add Noto Sans Devanagari fonts
+$fontMetrics->getFont('Nirmala UI', $fontDir . 'Nirmala.ttf');
 $fontMetrics->getFont('Noto Sans Devanagari', $fontDir . 'NotoSansDevanagari.ttf');
 
 // Set paper size to a custom size (in points)
@@ -59,17 +65,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
     $css = ob_get_clean();
 
     $content = $css . $content;
-    $encodedText = htmlentities($content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-
-
-    // $content = preg_replace('/<div class="canvas-container">.*?<\/div>/s', '', $content);
 
     try {
         // Load the HTML content
 
         $dompdf->loadHtml($content);
         $dompdf->render();
-        $pdfOutputPath = "transcripts/" . date('Ymd') . "_" . time() . "_" . 'transcript.pdf';
+        $pdfOutputPath = "generated_documents/" . date('Ymd') . "_" . time() . "_" . 'transcript.pdf';
 
         file_put_contents($pdfOutputPath, $dompdf->output());
         echo json_encode(['success' => true, 'message' => 'PDF generated successfully', 'pdf_path' => $pdfOutputPath]);

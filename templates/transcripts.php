@@ -12,7 +12,9 @@ if (!$enroll) {
 
 // Fetch all result rows for this enrollment
 $enrollEscaped = mysqli_real_escape_string($conn, $enroll);
-$templateSql    = "SELECT * FROM results WHERE enrollment_no = '{$enrollEscaped}' ORDER BY period ASC";
+$templateSql = "SELECT * FROM results 
+                WHERE enrollment_no = '{$enrollEscaped}'
+                ORDER BY CAST(SUBSTRING_INDEX(period, ' ', -1) AS UNSIGNED) ASC";
 $templateResult = mysqli_query($conn, $templateSql);
 
 if (!$templateResult || mysqli_num_rows($templateResult) == 0) {
@@ -43,8 +45,13 @@ while ($resultData = mysqli_fetch_assoc($templateResult)) {
             'student_name'   => $resultData['student_name'] ?? '',
             'enrollment_no'  => $resultData['enrollment_no'] ?? '',
             'father_name'    => $resultData['father_name'] ?? '',
-            'program'        => $resultData['program'] ?? '',
-            'specialization' => $resultData['stream'] ?? '',
+            'program'        => $resultData['program_print_name'] ?? '',
+            'specialization' => in_array($resultData['program_print_name'], [
+                "Masters in Business Administration",
+                "Executive Masters In Business Administration"
+            ])
+                ? ($resultData['stream'] ?? '-')
+                : '-',
             'exam_session'   => $resultData['exam_session'] ?? '',
             'passing_year'   => $passing_year ?: '-',
         ];
@@ -117,8 +124,8 @@ if (!function_exists('formatSemester')) {
 }
 
 // Paging logic: split resultsByPeriod into pages
-$maxRowsFirstPage  = 48; // with student info
-$maxRowsOtherPages = 52; // without student info on later pages
+$maxRowsFirstPage  = 52; // with student info
+$maxRowsOtherPages = 62; // without student info on later pages
 
 $pages           = [];
 $currentPage     = [];
@@ -164,271 +171,277 @@ $lastPageIndex = count($pages) - 1;
 ?>
 
 <?php foreach ($pages as $pageIndex => $periodsOnPage): ?>
-<div class="transcript-container" id="<?= htmlspecialchars($enroll . '-' . ($pageIndex + 1)) ?>">
-    <div class="marksheet">
+    <div class="transcript-container" id="<?= htmlspecialchars($enroll . '-' . ($pageIndex + 1)) ?>">
+        <div class="marksheet">
 
-        <?php if ($pageIndex === 0): ?>
-        <!-- Heading on FIRST PAGE -->
-        <h4 class="text-center w-100"
-            style="font-family: calibri, sans-serif !important;font-size: 12pt;font-weight: bold;width: 17cm !important;text-align: center !important;">
-            TRANSCRIPT
-        </h4>
-
-        <!-- Student Info Table ONLY ON FIRST PAGE -->
-        <table class="w-100 text-start" style="margin-top:0.5cm;margin-bottom:0.5cm;width:17cm;">
-            <tr>
-                <td class="text-start border"
-                    style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;font-weight:bold;">
-                    Name of Candidate
-                </td>
-                <td class="text-start border"
-                    style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;">
-                    <?= htmlspecialchars($student_info['student_name']) ?>
-                </td>
-
-                <td class="text-start border"
-                    style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;font-weight:bold;">
-                    Enrollment No
-                </td>
-                <td class="text-start border"
-                    style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;">
-                    <?= htmlspecialchars($student_info['enrollment_no']) ?>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="text-start border"
-                    style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:8pt;border-color:#111 !important;vertical-align:bottom !important;font-weight:bold;">
-                    Father’s/Husband’s Name
-                </td>
-                <td class="text-start border"
-                    style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;">
-                    <?= htmlspecialchars($student_info['father_name']) ?>
-                </td>
-
-                <td class="text-start border"
-                    style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;font-weight:bold;">
-                    Course
-                </td>
-                <td class="text-start border"
-                    style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;">
-                    <?= htmlspecialchars($student_info['program']) ?>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="text-start border"
-                    style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;font-weight:bold;">
-                    Passing Year
-                </td>
-                <td class="text-start border"
-                    style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;">
-                    <?= htmlspecialchars($student_info['passing_year']) ?>
-                </td>
-
-                <td class="text-start border"
-                    style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;font-weight:bold;">
-                    Specialization
-                </td>
-                <td class="text-start border"
-                    style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;">
-                    <?= htmlspecialchars($student_info['specialization'] ?: "-") ?>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="text-start border" colspan="4"
-                    style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;font-weight:bold;">
-                    Medium of Instruction : English
-                </td>
-            </tr>
-        </table>
-        <?php endif; ?>
-
-        <!-- SUBJECT TABLE: table is on EVERY PAGE, thead ONLY on PAGE 1 -->
-        <table class="table table-bordered table-marks mb-0 w-100" style="width:17cm;">
             <?php if ($pageIndex === 0): ?>
-            <thead>
-                <tr>
-                    <th rowspan="2"
-                        style="font-family:calibri,sans-serif !important;font-size:8pt;font-weight:bold;width:2cm;border:1px solid #111 !important;">
-                        Subject Code
-                    </th>
-                    <th rowspan="2" class="text-start"
-                        style="font-family:calibri,sans-serif !important;font-size:8pt;font-weight:bold;width:8cm;padding-left: 5px">
-                        Subjects
-                    </th>
-                    <th colspan="2" style="font-family:calibri,sans-serif !important;font-size:8pt;font-weight:bold;">
-                        External<br>Marks
-                    </th>
-                    <th colspan="2" style="font-family:calibri,sans-serif !important;font-size:8pt;font-weight:bold;">
-                        Internal<br>Marks
-                    </th>
-                    <th rowspan="2" style="font-family:calibri,sans-serif !important;font-size:8pt;font-weight:bold;">
-                        Total<br>Marks<br>OBTD
-                    </th>
-                    <th rowspan="2" style="font-family:calibri,sans-serif !important;font-size:8pt;font-weight:bold;">
-                        Result/<br>Remark
-                    </th>
-                </tr>
-                <tr>
-                    <th style="font-family:calibri,sans-serif !important;font-size:7.5pt;font-weight:bold;">
-                        MAX
-                    </th>
-                    <th style="font-family:calibri,sans-serif !important;font-size:7.5pt;font-weight:bold;">
-                        OBTD
-                    </th>
-                    <th style="font-family:calibri,sans-serif !important;font-size:7.5pt;font-weight:bold;">
-                        MAX
-                    </th>
-                    <th style="font-family:calibri,sans-serif !important;font-size:7.5pt;font-weight:bold;">
-                        OBTD
-                    </th>
-                </tr>
-            </thead>
+                <!-- Heading on FIRST PAGE -->
+                <h4 class="text-center w-100"
+                    style="font-family: calibri, sans-serif !important;font-size: 12pt;font-weight: bold;width: 17cm !important;text-align: center !important;">
+                    TRANSCRIPT
+                </h4>
+
+                <!-- Student Info Table ONLY ON FIRST PAGE -->
+                <table class="w-100 text-start" style="margin-top:0.5cm;margin-bottom:0.5cm;width:17cm;">
+                    <tr>
+                        <td class="text-start border"
+                            style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;font-weight:bold;">
+                            Name of Candidate
+                        </td>
+                        <td class="text-start border"
+                            style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;">
+                            <?= htmlspecialchars($student_info['student_name']) ?>
+                        </td>
+
+                        <td class="text-start border"
+                            style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;font-weight:bold;">
+                            Enrollment No
+                        </td>
+                        <td class="text-start border"
+                            style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;">
+                            <?= htmlspecialchars($student_info['enrollment_no']) ?>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-start border"
+                            style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:8pt;border-color:#111 !important;vertical-align:bottom !important;font-weight:bold;">
+                            Father’s/Husband’s Name
+                        </td>
+                        <td class="text-start border"
+                            style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;">
+                            <?= htmlspecialchars($student_info['father_name']) ?>
+                        </td>
+
+                        <td class="text-start border"
+                            style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;font-weight:bold;">
+                            Course
+                        </td>
+                        <td class="text-start border"
+                            style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;">
+                            <?= htmlspecialchars($student_info['program']) ?>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-start border"
+                            style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;font-weight:bold;">
+                            Passing Year
+                        </td>
+                        <td class="text-start border"
+                            style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;">
+                            <?= htmlspecialchars($student_info['passing_year']) ?>
+                        </td>
+
+                        <td class="text-start border"
+                            style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;font-weight:bold;">
+                            Specialization
+                        </td>
+                        <td class="text-start border"
+                            style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;">
+                            <?= htmlspecialchars($student_info['specialization'] ?: "-") ?>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-start border" colspan="4"
+                            style="height:0.5cm;padding:0 0 0 5px;font-family:calibri,sans-serif !important;font-size:9pt;border-color:#111 !important;vertical-align:bottom !important;font-weight:bold;">
+                            Medium of Instruction : English
+                        </td>
+                    </tr>
+                </table>
             <?php endif; ?>
 
-            <tbody>
-                <?php foreach ($periodsOnPage as $period => $pdata): ?>
-                <?php $subjects = $pdata['subjects']; ?>
-                <?php $totals   = $pdata['totals']; ?>
+            <!-- SUBJECT TABLE: table is on EVERY PAGE, thead ONLY on PAGE 1 -->
+            <table class="table table-bordered table-marks mb-0 w-100" style="width:17cm;">
+                <?php if ($pageIndex === 0): ?>
+                    <thead>
+                        <tr>
+                            <th rowspan="2"
+                                style="font-family:calibri,sans-serif !important;font-size:8pt;font-weight:bold;width:2cm;border:1px solid #111 !important;">
+                                Subject Code
+                            </th>
+                            <th rowspan="2" class="text-start"
+                                style="font-family:calibri,sans-serif !important;font-size:8pt;font-weight:bold;width:8cm;padding-left: 5px">
+                                Subjects
+                            </th>
+                            <th colspan="2" style="font-family:calibri,sans-serif !important;font-size:8pt;font-weight:bold;">
+                                External<br>Marks
+                            </th>
+                            <th colspan="2" style="font-family:calibri,sans-serif !important;font-size:8pt;font-weight:bold;">
+                                Internal<br>Marks
+                            </th>
+                            <th rowspan="2" style="font-family:calibri,sans-serif !important;font-size:8pt;font-weight:bold;">
+                                Total<br>Marks<br>OBTD
+                            </th>
+                            <th rowspan="2" style="font-family:calibri,sans-serif !important;font-size:8pt;font-weight:bold;">
+                                Result/<br>Remark
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="font-family:calibri,sans-serif !important;font-size:7.5pt;font-weight:bold;">
+                                MAX
+                            </th>
+                            <th style="font-family:calibri,sans-serif !important;font-size:7.5pt;font-weight:bold;">
+                                OBTD
+                            </th>
+                            <th style="font-family:calibri,sans-serif !important;font-size:7.5pt;font-weight:bold;">
+                                MAX
+                            </th>
+                            <th style="font-family:calibri,sans-serif !important;font-size:7.5pt;font-weight:bold;">
+                                OBTD
+                            </th>
+                        </tr>
+                    </thead>
+                <?php endif; ?>
 
-                <!-- Semester / Period Heading -->
-                <tr>
-                    <td colspan="8" class="text-start"
-                        style="font-family:calibri,sans-serif !important;font-size:8pt;padding-left:5px;border:1px solid #111 !important;">
-                        <?= htmlspecialchars(formatSemester($period)) ?>
-                    </td>
-                </tr>
+                <tbody>
+                    <?php foreach ($periodsOnPage as $period => $pdata): ?>
+                        <?php $subjects = $pdata['subjects']; ?>
+                        <?php $totals   = $pdata['totals']; ?>
 
-                <!-- Subject rows -->
-                <?php foreach ($subjects as $sub): ?>
-                <tr>
-                    <td class="text-start"
-                        style="font-family:calibri,sans-serif !important;font-size:8pt;padding-left:5px;border:1px solid #111 !important;">
-                        <?= htmlspecialchars($sub['sub_code']) ?>
-                    </td>
-                    <td class="text-start"
-                        style="font-family:calibri,sans-serif !important;font-size:8pt;padding-left:5px;border:1px solid #111 !important;">
-                        <?= htmlspecialchars($sub['sub_name']) ?>
-                    </td>
+                        <!-- Semester / Period Heading -->
+                        <tr>
+                            <td colspan="8" class="text-start"
+                                style="font-family:calibri,sans-serif !important;font-size:8pt;padding-left:5px;border:1px solid #111 !important;line-height: 0.35cm;">
+                                <?= htmlspecialchars(formatSemester($period)) ?>
+                            </td>
+                        </tr>
 
-                    <td class="text-center"
-                        style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;">
-                        <?= htmlspecialchars($sub['sub_ext_max']) ?>
-                    </td>
-                    <td class="text-center"
-                        style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;">
-                        <?= htmlspecialchars($sub['sub_ext_obt']) ?>
-                    </td>
+                        <!-- Subject rows -->
+                        <?php foreach ($subjects as $sub):
+                            if (preg_match('/[\p{Devanagari}]/u', $sub['sub_name'])) {
+                                $classValue = 'Mangal, sans-serif !important';
+                            } else {
+                                $classValue = 'calibri, sans-serif !important';
+                            }
+                        ?>
+                            <tr>
+                                <td class="text-start"
+                                    style="font-family:calibri,sans-serif !important;font-size:8pt;padding-left:5px;border:1px solid #111 !important;line-height: 0.35cm;">
+                                    <?= htmlspecialchars($sub['sub_code']) ?>
+                                </td>
+                                <td class="text-start"
+                                    style="font-family:<?php echo  $classValue; ?>;font-size:8pt;padding-left:5px;border:1px solid #111 !important;line-height: 0.35cm;">
+                                    <?= htmlspecialchars($sub['sub_name']) ?>
+                                </td>
 
-                    <td class="text-center"
-                        style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;">
-                        <?= htmlspecialchars($sub['sub_int_max']) ?>
-                    </td>
-                    <td class="text-center"
-                        style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;">
-                        <?= htmlspecialchars($sub['sub_int_obt']) ?>
-                    </td>
+                                <td class="text-center"
+                                    style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;line-height: 0.35cm;">
+                                    <?= htmlspecialchars($sub['sub_ext_max']) ?>
+                                </td>
+                                <td class="text-center"
+                                    style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;line-height: 0.35cm;">
+                                    <?= htmlspecialchars($sub['sub_ext_obt']) ?>
+                                </td>
 
-                    <td class="text-center"
-                        style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;">
-                        <?= htmlspecialchars($sub['sub_total_obt']) ?>
-                    </td>
-                    <td class="text-start"
-                        style="font-family:calibri,sans-serif !important;font-size:8pt;padding-left:5px;border:1px solid #111 !important;">
-                        <?= htmlspecialchars($sub['sub_result_remark']) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
+                                <td class="text-center"
+                                    style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;line-height: 0.35cm;">
+                                    <?= htmlspecialchars($sub['sub_int_max']) ?>
+                                </td>
+                                <td class="text-center"
+                                    style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;line-height: 0.35cm;">
+                                    <?= htmlspecialchars($sub['sub_int_obt']) ?>
+                                </td>
 
-                <!-- Grand Total for that period -->
-                <tr>
-                    <td colspan="2" class="text-center"
-                        style="font-weight:bold;font-family:calibri,sans-serif !important;font-size:8pt;padding-left:5px;border:1px solid #111 !important;">
-                        <div>Grand Total</div>
-                    </td>
-                    <td class="text-center"
-                        style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;">
-                        <?= htmlspecialchars($totals['Ext_max_total']) ?>
-                    </td>
-                    <td class="text-center"
-                        style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;">
-                        <?= htmlspecialchars($totals['Ext_max_obt_total']) ?>
-                    </td>
-                    <td class="text-center"
-                        style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;">
-                        <?= htmlspecialchars($totals['int_max_total']) ?>
-                    </td>
-                    <td class="text-center"
-                        style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;">
-                        <?= htmlspecialchars($totals['int_max_obt_total']) ?>
-                    </td>
-                    <td class="text-center"
-                        style="font-weight:bold;font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;">
-                        <?= htmlspecialchars($totals['total_obt']) ?>
-                    </td>
-                    <td class="text-center"
-                        style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;">
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                                <td class="text-center"
+                                    style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;line-height: 0.35cm;">
+                                    <?= htmlspecialchars($sub['sub_total_obt']) ?>
+                                </td>
+                                <td class="text-start"
+                                    style="font-family:calibri,sans-serif !important;font-size:8pt;padding-left:5px;border:1px solid #111 !important;line-height: 0.35cm;">
+                                    <?= htmlspecialchars($sub['sub_result_remark']) ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+
+                        <!-- Grand Total for that period -->
+                        <tr>
+                            <td colspan="2" class="text-center"
+                                style="font-weight:bold;font-family:calibri,sans-serif !important;font-size:8pt;padding-left:5px;border:1px solid #111 !important;line-height: 0.35cm;">
+                                <div>Grand Total</div>
+                            </td>
+                            <td class="text-center"
+                                style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;line-height: 0.35cm;">
+                                <?= htmlspecialchars($totals['Ext_max_total']) ?>
+                            </td>
+                            <td class="text-center"
+                                style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;line-height: 0.35cm;">
+                                <?= htmlspecialchars($totals['Ext_max_obt_total']) ?>
+                            </td>
+                            <td class="text-center"
+                                style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;line-height: 0.35cm;">
+                                <?= htmlspecialchars($totals['int_max_total']) ?>
+                            </td>
+                            <td class="text-center"
+                                style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;line-height: 0.35cm;">
+                                <?= htmlspecialchars($totals['int_max_obt_total']) ?>
+                            </td>
+                            <td class="text-center"
+                                style="font-weight:bold;font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;line-height: 0.35cm;">
+                                <?= htmlspecialchars($totals['total_obt']) ?>
+                            </td>
+                            <td class="text-center"
+                                style="font-family:calibri,sans-serif !important;font-size:8pt;border:1px solid #111 !important;line-height: 0.35cm;">
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+            <?php if ($pageIndex === $lastPageIndex): ?>
+                <!-- FINAL SUMMARY ONLY ON LAST PAGE -->
+                <table class="w-100 text-start" style="margin-top:0.1cm;">
+                    <tr>
+                        <td class="text-start border"
+                            style="font-weight:bold;padding:0 !important;padding-top:0.1cm !important;border:none !important;width:2.5cm;font-size:10pt;">
+                            Grand Total
+                        </td>
+                        <td class="text-start border"
+                            style="font-weight:bold;padding:0 !important;padding-top:0.1cm !important;border:none !important;font-size:10pt;">
+                            :
+                            <?= htmlspecialchars($student_info['grand_total_obt']) ?>/<?= htmlspecialchars($student_info['grand_total']) ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-start border"
+                            style="font-weight:bold;padding:0 !important;padding-top:0.1cm !important;border:none !important;width:2.5cm;font-size:10pt;">
+                            Percentage
+                        </td>
+                        <td class="text-start border"
+                            style="font-weight:bold;padding:0 !important;padding-top:0.1cm !important;border:none !important;font-size:10pt;">
+                            : <?= number_format($student_info['percentage'], 2) ?>%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-start border"
+                            style="font-weight:bold;padding:0 !important;padding-top:0.1cm !important;border:none !important;width:2.5cm;font-size:10pt;">
+                            Division
+                        </td>
+                        <td class="text-start border"
+                            style="font-weight:bold;padding:0 !important;padding-top:0.1cm !important;border:none !important;font-size:10pt;">
+                            : <?= htmlspecialchars($student_info['division'] ?? '') ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-start border"
+                            style="font-weight:bold;padding:0 !important;padding-top:0.1cm !important;border:none !important;width:2.5cm;font-size:10pt;">
+                            Date of Issue
+                        </td>
+                        <td class="text-start border"
+                            style="font-weight:bold;padding:0 !important;padding-top:0.1cm !important;border:none !important;font-size:10pt;">
+                            : <?= htmlspecialchars($student_info['doi'] ?? '') ?>
+                        </td>
+                    </tr>
+                </table>
+            <?php endif; ?>
+
+        </div>
 
         <?php if ($pageIndex === $lastPageIndex): ?>
-        <!-- FINAL SUMMARY ONLY ON LAST PAGE -->
-        <table class="w-100 text-start" style="margin-top:0.1cm;">
-            <tr>
-                <td class="text-start border"
-                    style="font-weight:bold;padding:0 !important;border:none !important;width:2.5cm;font-size:10pt;">
-                    Grand Total
-                </td>
-                <td class="text-start border"
-                    style="font-weight:bold;padding:0 !important;border:none !important;font-size:10pt;">
-                    :
-                    <?= htmlspecialchars($student_info['grand_total_obt']) ?>/<?= htmlspecialchars($student_info['grand_total']) ?>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-start border"
-                    style="font-weight:bold;padding:0 !important;border:none !important;width:2.5cm;font-size:10pt;">
-                    Percentage
-                </td>
-                <td class="text-start border"
-                    style="font-weight:bold;padding:0 !important;border:none !important;font-size:10pt;">
-                    : <?= number_format($student_info['percentage'], 2) ?>%
-                </td>
-            </tr>
-            <tr>
-                <td class="text-start border"
-                    style="font-weight:bold;padding:0 !important;border:none !important;width:2.5cm;font-size:10pt;">
-                    Division
-                </td>
-                <td class="text-start border"
-                    style="font-weight:bold;padding:0 !important;border:none !important;font-size:10pt;">
-                    : <?= htmlspecialchars($student_info['division'] ?? '') ?>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-start border"
-                    style="font-weight:bold;padding:0 !important;border:none !important;width:2.5cm;font-size:10pt;">
-                    Date of Issue
-                </td>
-                <td class="text-start border"
-                    style="font-weight:bold;padding:0 !important;border:none !important;font-size:10pt;">
-                    : <?= htmlspecialchars($student_info['doi'] ?? '') ?>
-                </td>
-            </tr>
-        </table>
+            <p class="coe-sign text-end" style='font-size:11pt;font-family: "Times New Roman", Times, serif !important;'>
+                Controller of Examination
+            </p>
         <?php endif; ?>
-
     </div>
-
-    <?php if ($pageIndex === $lastPageIndex): ?>
-    <p class="coe-sign text-end" style='font-size:11pt;font-family: "Times New Roman", Times, serif !important;'>
-        Controller of Examination
-    </p>
-    <?php endif; ?>
-</div>
 <?php endforeach; ?>

@@ -9,8 +9,8 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
 <!DOCTYPE html>
 <html lang="en">
 
-<head><?php include 'assets/partials/header.html' ?>
-    <STYLE>
+<head>
+    <?php include 'assets/partials/header.html' ?> <style>
         .url-list {
             display: flex;
             flex-wrap: wrap;
@@ -19,7 +19,7 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
         .url-list a {
             margin-left: 0.5rem;
         }
-    </STYLE>
+    </style>
 </head>
 
 <body>
@@ -58,6 +58,7 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
                                 <table class="table">
                                     <thead class="bg-primary text-white" style="position: sticky; top: 0; z-index: 1;">
                                         <th><input type="checkbox" name="checkAll" id="checkAll"> </th>
+                                        <th>Upload</th>
                                         <th>Doc Type</th>
                                         <th>Id</th>
                                         <th>Application Id</th>
@@ -84,6 +85,32 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
             </div>
         </div>
     </div>
+
+    <!-- Upload Image Modal -->
+    <div class="modal fade" id="uploadImageModal" tabindex="-1">
+        <div class="modal-dialog">
+            <form id="uploadImageForm" enctype="multipart/form-data" class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload Image</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="uploadRowId">
+
+                    <label class="form-label">Choose Image</label>
+                    <input type="file" name="image" class="form-control" accept="image/*" required>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
 
     <?php
     include 'assets/partials/plugins_js.html';
@@ -158,17 +185,28 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
                             // ✅ Row Creation Logic (moved inside loop)
                             let accessRow = '';
                             let print_status = '';
+                            let uploadBtn = '';
 
                             if (item.print_flag === "1") {
                                 print_status = "Printed";
-                                accessRow = `<input type="checkbox" name="check" class="check" disabled>`;
+                                accessRow =
+                                    `<input type="checkbox" name="check" class="check" disabled>`;
                             } else {
                                 print_status = "Not Printed";
-                                accessRow = `<input type="checkbox" value="${item.id || ''}" name="check" class="check">`;
+                                accessRow =
+                                    `<input type="checkbox" value="${item.id || ''}" name="check" class="check">`;
+                            }
+
+                            if (["DEGREE SPZL", "DEGREE PHD", "DEGREE WITHOUT SPZL", "DIPLOMA WITHOUT SPZL"].includes(item.request_type)) {
+                                uploadBtn = `
+                                    <button class="btn btn-sm btn-success upload-image-btn" data-id="${item.id}">
+                                        Upload Image
+                                    </button>`;
                             }
 
                             let tableRow = `<tr>
                                 <td>${accessRow}</td>
+                                <td>${uploadBtn} </td>
                                 <td>${item.request_type || ''}</td>
                                 <td>${item.id || ''}</td>
                                 <td>${item.application_id || ''}</td>
@@ -224,7 +262,7 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
                 return;
             }
 
-            window.location.href = "generated-documents?param=" + btoa(checkedValues.join(','));
+            window.location.href = "generated-documents?param=" + checkedValues.join(',');
         });
 
         $(".download-csv").on("click", function() {
@@ -273,6 +311,32 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
                 document.body.removeChild(link);
             }
         }
+
+        $(document).on("click", ".upload-image-btn", function() {
+            let rowId = $(this).data("id");
+            $("#uploadRowId").val(rowId);
+            $("#uploadImageModal").modal("show");
+        });
+        $("#uploadImageForm").on("submit", function(e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            $.ajax({
+                url: "dbFiles/upload_document_image.php",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    alert("Image uploaded successfully!");
+                    $("#uploadImageModal").modal("hide");
+                },
+                error: function() {
+                    alert("Error uploading image");
+                }
+            });
+        });
     </script>
 </body>
 

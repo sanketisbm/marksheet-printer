@@ -17,6 +17,15 @@ if (empty($data) || !is_array($data)) {
     }
 
     $resultData = mysqli_fetch_assoc($templateResult);
+    $envArray = str_split($info['enrollment_no']); // split into characters
+    $env = $envArray[2] . $envArray[3];
+    if ($env === "01" || $env === "11") {
+        $initials = "He";
+        $initials2 = "his";
+    } elseif ($env === "02" || $env === "12") {
+        $initials = "She";
+        $initials2 = "her";
+    }
 ?>
     <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>">
         <div style="margin-top:5.8cm; display: flex; flex-direction:column;">
@@ -38,7 +47,7 @@ if (empty($data) || !is_array($data)) {
                 This is to certify that <?= htmlspecialchars($resultData['student_name'] ?? $info['student_name'] ?? '-') ?>
                 S/o / D/o / W/o <?= htmlspecialchars($resultData['father_name'] ?? $info['father_name'] ?? '-') ?> bearing
                 enrolment no. <?= htmlspecialchars($resultData['enrollment_no'] ?? $info['enrollment_no'] ?? '-') ?> was
-                a regular student and has completed his/her LLB course in the year
+                a regular student and has completed <?= htmlspecialchars($initials2 ?? 'his / her') ?> LLB course in the year
                 <?= htmlspecialchars(explode("-", $resultData['exam_session'])[1] ?? $info['exam_session'] ?? '-') ?> with
                 <?= htmlspecialchars($resultData['cDivision'] ?? $info['cDivision'] ?? '-') ?> division.
             </p>

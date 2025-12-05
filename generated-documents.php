@@ -21,7 +21,7 @@ function documentRequests()
 {
     global $conn;
 
-    $idsList = base64_decode($_GET['param'] ?? '');
+    $idsList = $_GET['param'] ?? '';
 
     if (empty($idsList)) {
         http_response_code(400);
@@ -29,7 +29,7 @@ function documentRequests()
         exit;
     }
 
-    $sql = "SELECT * FROM document_requests WHERE id IN ($idsList) ORDER BY created_at, print_flag ASC";
+    $sql = "SELECT * FROM document_requests WHERE id IN ($idsList) ORDER BY created_at, print_flag DESC";
 
     $result = mysqli_query($conn, $sql);
 
@@ -80,6 +80,14 @@ function documentRequests()
             $renderedHtmls[] = renderTemplate('lor.php', ['data' => $row]);
         } elseif ($reqType === "PROVISIONAL") {
             $renderedHtmls[] = renderTemplate('provisional-certificate.php', ['data' => $row]);
+        } elseif ($reqType === "DEGREE SPZL") {
+            $renderedHtmls[] = renderTemplate('degree-spzl.php', ['data' => $row]);
+        } elseif ($reqType === "DEGREE PHD") {
+            $renderedHtmls[] = renderTemplate('degree-phd.php', ['data' => $row]);
+        } elseif ($reqType === "DEGREE WITHOUT SPZL") {
+            $renderedHtmls[] = renderTemplate('degree-without-spzl.php', ['data' => $row]);
+        } elseif ($reqType === "DIPLOMA WITHOUT SPZL") {
+            $renderedHtmls[] = renderTemplate('degree-diploma-without-spzl.php', ['data' => $row]);
         } else {
             // optional fallback
             $renderedHtmls[] = "<p>Unknown document type: $reqType</p>";
@@ -151,28 +159,15 @@ $renderedHtmls = documentRequests();
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>ISBM MarkMate</title>
-    <link rel="stylesheet" href="assets/vendors/feather/feather.css">
-    <link rel="stylesheet" href="assets/vendors/ti-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
-    <link rel="stylesheet" href="assets/vendors/ti-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="assets/css/vertical-layout-light/style.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/perfect-scrollbar/css/perfect-scrollbar.css" />
-    <link rel="shortcut icon" href="assets/images/logo-mini.png" />
-
+    <?php include 'assets/partials/header.html' ?>
     <style>
         /* Screen + PDF basic layout for transcript page */
         .transcript-container {
             width: 21cm;
             height: 29.7cm;
-            padding: 0.8cm 2cm 2.1cm 2cm;
+            padding: 0cm 2cm 2.1cm 2cm;
             border: 3px solid #06355f;
             font-family: calibri, sans-serif !important;
-            background: url(../images/bc.jpg);
             background-position: center;
             background-size: cover;
             position: relative;
@@ -186,7 +181,6 @@ $renderedHtmls = documentRequests();
             padding: 0.8cm 2cm 2.1cm 2cm;
             border: 3px solid #06355f;
             font-family: "Times New Roman", Times, serif !important;
-            background: url(../images/bc.jpg);
             background-position: center;
             background-size: cover;
             position: relative;
@@ -201,7 +195,7 @@ $renderedHtmls = documentRequests();
         .coe-sign {
             position: absolute;
             right: 2.5cm;
-            bottom: 1.3cm;
+            bottom: 2cm;
             font-weight: bold;
             font-size: 9pt;
             width: 17cm !important;
@@ -261,6 +255,9 @@ $renderedHtmls = documentRequests();
             });
         }
 
+
+        document.fonts.check("16px KrutiDev")
+
         $(".print").on("click", function() {
             generatePDF();
         });
@@ -283,7 +280,7 @@ $renderedHtmls = documentRequests();
                 dataType: "json",
                 success: function(response) {
                     if (response.success) {
-                        // updatePrinted(ids); // if you want to enable this later
+                        // updatePrinted(ids);
                         alert("PDF generated successfully. Click OK to view.");
                         window.open(response.pdf_path, '_blank');
                     } else {
@@ -301,7 +298,7 @@ $renderedHtmls = documentRequests();
         function updatePrinted(ids) {
             $.ajax({
                 type: "POST",
-                url: "update_printed.php",
+                url: "update_printed_doc.php",
                 data: {
                     ids: ids
                 },
@@ -314,7 +311,7 @@ $renderedHtmls = documentRequests();
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', error);
-                    alert('An error occurred while updating print flags');
+                    alert('An error occurred while updating the PDF printed status');
                 }
             });
         }

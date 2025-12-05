@@ -30,7 +30,7 @@ if (empty($data) || !is_array($data)) {
             <div style="display:flex;flex-direction:column;margin-top:1.5cm;width:17cm">
                 <p style="font-size: 13pt;margin-bottom: 10pt;line-height: 1.25;">
                     This is to certify that <?= htmlspecialchars($resultData['student_name'] ?? $info['student_name'] ?? '-') ?>, was
-                    a student of <?= htmlspecialchars($resultData['program'] ?? $info['program'] ?? '-') ?>, bearing the
+                    a student of <?= htmlspecialchars($resultData['program_print_name'] ?? $info['program'] ?? '-') ?>, bearing the
                     enrolment number <?= htmlspecialchars($resultData['enrollment_no'] ?? $info['enrollment_no'] ?? '-') ?> has
                     completed the course successfully.
                 </p>

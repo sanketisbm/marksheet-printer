@@ -6,9 +6,17 @@ if (empty($data) || !is_array($data)) {
 }
 ?>
 
-<?php foreach ($data as $info): ?>
+<?php foreach ($data as $info):
+    $envArray = str_split($info['enrollment_no']); // split into characters
+    $env = $envArray[2] . $envArray[3];
+    if ($env === "01" || $env === "11") {
+        $initials = "He";
+    } elseif ($env === "02" || $env === "12") {
+        $initials = "She";
+    }
+?>
     <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>">
-        <div style="margin-top:4.8cm; display: flex; flex-direction:column;">
+        <div style="margin-top:4.5cm; display: flex; flex-direction:column;">
             <p style="font-size: 12pt;font-weight: 400;width:17cm;text-align:right;">
                 Date: <?php echo date('d-m-Y'); ?> </p>
 
@@ -29,9 +37,11 @@ if (empty($data) || !is_array($data)) {
 
                 <p style="font-size: 12pt;margin-bottom: 10pt;line-height: 1.25;">
                     <?= htmlspecialchars($resultData['student_name'] ?? $info['student_name'] ?? '-') ?> has completed
-                    <?= htmlspecialchars($resultData['program'] ?? $info['program'] ?? '-') ?> with first division. He is a
+                    <?= htmlspecialchars($resultData['program_print_name'] ?? $info['program'] ?? '-') ?> with first
+                    division. <?= htmlspecialchars($initials ?? 'He/She') ?> is a
                     hard-working student and has good
-                    communication skills. He has pleasing manner and is lively, attentive and punctual. He is capable of
+                    communication skills. <?= htmlspecialchars($initials ?? 'He/She') ?> has pleasing manner and is lively,
+                    attentive and punctual. <?= htmlspecialchars($initials ?? 'He/She') ?> is capable of
                     successfully completing multiple tasks with favourable results despite deadline pressure.</p>
 
                 <p style="font-size: 12pt;margin-bottom: 10pt;line-height: 1.25;">I wish all the very best for the academic
@@ -48,7 +58,8 @@ if (empty($data) || !is_array($data)) {
 
             <div style="width:17cm; margin-top:2cm;">
                 <p style="font-size: 12pt;line-height: 1.25;"><?= htmlspecialchars($info['professor'] ?? '-') ?></p>
-                <p style="font-size: 12pt;line-height: 1.25;"><?= htmlspecialchars($info['professor_desg'] ?? '-') ?> - Department of <?= htmlspecialchars($info['professor_dept'] ?? '-') ?></p>
+                <p style="font-size: 12pt;line-height: 1.25;"><?= htmlspecialchars($info['professor_desg'] ?? '-') ?> -
+                    Department of <?= htmlspecialchars($info['professor_dept'] ?? '-') ?></p>
                 <p style="font-size: 12pt;line-height: 1.25;">ISBM University</p>
                 <p style="font-size: 12pt;line-height: 1.25;">India</p>
             </div>

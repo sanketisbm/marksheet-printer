@@ -4,11 +4,21 @@ global $conn;
 if (empty($data) || !is_array($data)) {
     return;
 }
+
 ?>
 
-<?php foreach ($data as $info): ?>
+<?php foreach ($data as $info):
+    $envArray = str_split($info['enrollment_no']); // split into characters
+    $env = $envArray[2] . $envArray[3];
+    if ($env === "01" || $env === "11") {
+        $initials = "He";
+        $initials2 = "he";
+    } elseif ($env === "02" || $env === "12") {
+        $initials = "She";
+        $initials2 = "she";
+    } ?>
     <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>">
-        <div style="margin-top:4.8cm; display: flex; flex-direction:column;">
+        <div style="margin-top:4.5cm; display: flex; flex-direction:column;">
             <p style="font-size: 12pt;font-weight: 400;width:17cm;text-align:right;">
                 Date: <?php echo date('d-m-Y'); ?> </p>
 
@@ -25,12 +35,12 @@ if (empty($data) || !is_array($data)) {
 
                 <p style="font-size: 14pt;margin-bottom: 10pt;line-height: 1.25;">
                     <?= htmlspecialchars($resultData['student_name'] ?? $info['student_name'] ?? '-') ?> is bright,
-                    compassionate, genuinely well rounded and has actively participated in a diverse activity. He/She is
+                    compassionate, genuinely well rounded and has actively participated in a diverse activity. <?= htmlspecialchars($initials ?? 'He/She') ?> is
                     very well liked and respected by both peers and teachers.</p>
 
                 <p style="font-size: 14pt;margin-bottom: 10pt;line-height: 1.25;">I whole heartedly recommend
                     <?= htmlspecialchars($resultData['student_name'] ?? $info['student_name'] ?? '-') ?> for higher
-                    education and hope he/she gets to study the preferred course. </p>
+                    education and hope <?= htmlspecialchars($initials2 ?? 'he/she') ?> gets to study the preferred course. </p>
 
                 <p style="font-size: 14pt;margin-bottom: 10pt;line-height: 1.25;">Thanking you. </p>
 

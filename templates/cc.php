@@ -17,6 +17,16 @@ if (empty($data) || !is_array($data)) {
     }
 
     $resultData = mysqli_fetch_assoc($templateResult);
+
+    $envArray = str_split($info['enrollment_no']); // split into characters
+    $env = $envArray[2] . $envArray[3];
+    if ($env === "01" || $env === "11") {
+        $initials = "He";
+        $initials2 = "his";
+    } elseif ($env === "02" || $env === "12") {
+        $initials = "She";
+        $initials2 = "her";
+    }
 ?>
     <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>" style="padding-left: 2.5cm !important;padding-right: 2.5cm !important;">
         <div style="margin-top:5.2cm; display: flex; flex-direction:column;">
@@ -58,11 +68,11 @@ if (empty($data) || !is_array($data)) {
 
             <div style="display:flex;flex-direction:column;margin-top:1cm;width:16cm">
                 <p style="font-size: 14pt;margin-bottom: 10pt;line-height: 1.25;">has been a regular student of the University in class / course
-                    <b><?= htmlspecialchars($resultData['program'] ?? $info['program'] ?? '-') ?></b> and passed his / her
+                    <b><?= htmlspecialchars($resultData['program_print_name'] ?? $info['program'] ?? '-') ?></b> and passed <?= htmlspecialchars($initials2 ?? 'his / her') ?>
                     examination of the above course in
                     <b><?= htmlspecialchars(explode("-", $resultData['exam_session'])[1] ?? $info['exam_session'] ?? '-') ?></b>.
                 </p>
-                <p style="font-size: 14pt;line-height: 1.25;">He / She is reliable, sincere, hardworking and bears a good moral character.</p>
+                <p style="font-size: 14pt;line-height: 1.25;"><?= htmlspecialchars($initials ?? 'He / She') ?> is reliable, sincere, hardworking and bears a good moral character.</p>
             </div>
             <p style="text-align:right;font-size:12pt;font-weight:400;margin-top:4.3cm;width:16cm;">
                 For Registrar

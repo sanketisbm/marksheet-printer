@@ -1,4 +1,5 @@
-<!-- css_t.php -->
+<!-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> -->
+
 <style>
     @font-face {
         font-family: 'Calibri';
@@ -29,15 +30,53 @@
     }
 
     @font-face {
+        font-family: 'Arial';
+        src: url('assets/fonts/arial.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Arial';
+        src: url('assets/fonts/arialbd.ttf') format('truetype');
+        font-weight: bold;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Arial';
+        src: url('assets/fonts/ariali.ttf') format('truetype');
+        font-weight: normal;
+        font-style: italic;
+    }
+
+    @font-face {
+        font-family: 'Arial';
+        src: url('assets/fonts/arialbi.ttf') format('truetype');
+        font-weight: bold;
+        font-style: italic;
+    }
+
+    @font-face {
         font-family: 'KrutiDev';
         src: url('assets/fonts/krutidev-010-hindi-font-download.ttf') format('truetype');
+        /* Replace with actual font path */
         font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'KrutiDev';
+        src: url('assets/fonts/Kruti Dev 010 Bold.ttf') format('truetype');
+        /* Replace with actual font path */
+        font-weight: bold;
         font-style: normal;
     }
 
     @font-face {
         font-family: 'Nirmala UI';
         src: url('assets/fonts/Nirmala.ttf') format('truetype');
+        /* Path to the regular font */
         font-weight: normal;
         font-style: normal;
     }
@@ -45,6 +84,7 @@
     @font-face {
         font-family: 'Mangal';
         src: url('assets/fonts/MANGAL.ttf') format('truetype');
+        /* Path to the regular font */
         font-weight: normal;
         font-style: normal;
     }
@@ -52,6 +92,7 @@
     @font-face {
         font-family: 'Noto Sans Devanagari';
         src: url('assets/fonts/NotoSansDevanagari.ttf') format('truetype');
+        /* Path to the regular font */
         font-weight: normal;
         font-style: normal;
         font-feature-settings: "liga" 1;
@@ -60,6 +101,7 @@
     @font-face {
         font-family: 'ShreeDevanagari714';
         src: url('assets/fonts/ShreeDevanagari714.ttf') format('truetype');
+        /* Path to the regular font */
         font-weight: normal;
         font-style: normal;
     }
@@ -67,6 +109,7 @@
     @font-face {
         font-family: 'Lohit-Devanagari';
         src: url('assets/fonts/Lohit-Devanagari.ttf') format('truetype');
+        /* Path to the regular font */
         font-weight: normal;
         font-style: normal;
     }
@@ -157,8 +200,8 @@
     .transcript-container {
         width: 21cm;
         height: auto;
-        min-height: 26cm;
-        padding: 0.8cm 2cm 1.3cm 2cm;
+        min-height: 25cm;
+        padding: 0cm 2cm 1.3cm 2cm;
         position: relative;
         box-sizing: border-box;
         margin: 0 auto;
@@ -192,7 +235,7 @@
     .coe-sign {
         position: absolute;
         right: 7cm;
-        bottom: 1.3cm;
+        bottom: 2cm;
         font-weight: bold;
         font-size: 11pt;
         font-family: "Times New Roman", Times, serif !important;

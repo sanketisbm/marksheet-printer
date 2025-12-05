@@ -17,14 +17,23 @@ if (empty($data) || !is_array($data)) {
     }
 
     $resultData = mysqli_fetch_assoc($templateResult);
+        $envArray = str_split($info['enrollment_no']); // split into characters
+    $env = $envArray[2] . $envArray[3];
+    if ($env === "01" || $env === "11") {
+        $initials = "He";
+        $initials2 = "his";
+    } elseif ($env === "02" || $env === "12") {
+        $initials = "She";
+        $initials2 = "her";
+    }
 ?>
     <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>">
-        <div style="margin-top:4.8cm; display: flex; flex-direction:column;">
+        <div style="margin-top:5.2cm; display: flex; flex-direction:column;">
             <p style="font-size: 14pt;font-weight: 400;width:17cm;text-align:right;">
                 Date: <?php echo date('d-m-Y'); ?> </p>
 
             <p class="text-center"
-                style="margin-top: 2.5cm;font-size: 16pt;font-weight: bold;text-decoration: underline;width:17cm">
+                style="margin-top: 3cm;font-size: 16pt;font-weight: bold;text-decoration: underline;width:17cm">
                 TO WHOM IT MAY CONCERN
             </p>
 
@@ -33,12 +42,12 @@ if (empty($data) || !is_array($data)) {
                     <b><?= htmlspecialchars($resultData['student_name'] ?? $info['student_name'] ?? '-') ?></b> S/o / D/o W/o
                     <b><?= htmlspecialchars($resultData['father_name'] ?? $info['father_name'] ?? '-') ?></b> bearing enrolment no.
                     <?= htmlspecialchars($resultData['enrollment_no'] ?? $info['enrollment_no'] ?? '-') ?> has been declared
-                    passed in <b><?= htmlspecialchars($resultData['program'] ?? $info['program'] ?? '-') ?></b> examination of
+                    passed in <b><?= htmlspecialchars($resultData['program_print_name'] ?? $info['program'] ?? '-') ?></b> examination of
                     <?= htmlspecialchars(explode("-", $resultData['exam_session'])[1] ?? $info['exam_session'] ?? '-') ?>.
                 </p>
 
                 <p style="font-size: 14pt;margin-bottom: 10pt;line-height: 1.25;">
-                    He/She has been attending the class and him/her attendance was satisfactory.
+                    <?= htmlspecialchars($initials ?? 'He/She') ?> has been attending the class and <?= htmlspecialchars($initials2 ?? 'his/her') ?> attendance was satisfactory.
                 </p>
 
             </div>
