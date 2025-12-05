@@ -16,50 +16,8 @@
     }
 
     @font-face {
-        font-family: 'Calibri';
-        src: url('assets/fonts/calibrii.ttf') format('truetype');
-        font-weight: normal;
-        font-style: italic;
-    }
-
-    @font-face {
-        font-family: 'Calibri';
-        src: url('assets/fonts/calibriz.ttf') format('truetype');
-        font-weight: bold;
-        font-style: italic;
-    }
-
-    @font-face {
-        font-family: 'Arial';
-        src: url('assets/fonts/arial.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: 'Arial';
-        src: url('assets/fonts/arialbd.ttf') format('truetype');
-        font-weight: bold;
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: 'Arial';
-        src: url('assets/fonts/ariali.ttf') format('truetype');
-        font-weight: normal;
-        font-style: italic;
-    }
-
-    @font-face {
-        font-family: 'Arial';
-        src: url('assets/fonts/arialbi.ttf') format('truetype');
-        font-weight: bold;
-        font-style: italic;
-    }
-
-    @font-face {
         font-family: 'KrutiDev';
-        src: url('assets/fonts/krutidev-010-hindi-font-download.ttf') format('truetype');
+        src: url('assets/fonts/KrutiDev.ttf') format('truetype');
         /* Replace with actual font path */
         font-weight: normal;
         font-style: normal;
@@ -76,39 +34,6 @@
     @font-face {
         font-family: 'Nirmala UI';
         src: url('assets/fonts/Nirmala.ttf') format('truetype');
-        /* Path to the regular font */
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: 'Mangal';
-        src: url('assets/fonts/MANGAL.ttf') format('truetype');
-        /* Path to the regular font */
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: 'Noto Sans Devanagari';
-        src: url('assets/fonts/NotoSansDevanagari.ttf') format('truetype');
-        /* Path to the regular font */
-        font-weight: normal;
-        font-style: normal;
-        font-feature-settings: "liga" 1;
-    }
-
-    @font-face {
-        font-family: 'ShreeDevanagari714';
-        src: url('assets/fonts/ShreeDevanagari714.ttf') format('truetype');
-        /* Path to the regular font */
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: 'Lohit-Devanagari';
-        src: url('assets/fonts/Lohit-Devanagari.ttf') format('truetype');
         /* Path to the regular font */
         font-weight: normal;
         font-style: normal;

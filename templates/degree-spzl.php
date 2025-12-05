@@ -5,9 +5,6 @@ if (empty($data) || !is_array($data)) {
     return;
 }
 
-/**
- * Title-case helper (works with UTF-8)
- */
 function titleCase($string)
 {
     $string = (string) $string;
@@ -18,9 +15,6 @@ function titleCase($string)
     return mb_convert_case($string, MB_CASE_TITLE, "UTF-8");
 }
 
-/**
- * English → Hindi (Unicode) using Google Input Tools
- */
 function english_to_hindi_unicode($text)
 {
     $text = trim((string) $text);
@@ -61,11 +55,6 @@ function english_to_hindi_unicode($text)
     return $text;
 }
 
-/**
- * Unicode Hindi → KrutiDev (basic mapper)
- * NOTE: This is still a simplified converter – for complex words/ligatures,
- * you may need a more exhaustive mapping.
- */
 function unicode_to_krutidev($text)
 {
     $map = array(
@@ -198,9 +187,6 @@ function unicode_to_krutidev($text)
     return $text;
 }
 
-/**
- * Combined helper: English → Hindi Unicode → KrutiDev
- */
 function english_to_krutidev($text)
 {
     $unicode = english_to_hindi_unicode($text);
@@ -221,8 +207,10 @@ function english_to_krutidev($text)
         $env = $enroll[2] . $enroll[3];
         if ($env === "01" || $env === "11") {
             $initials = "S/o";
+            $initials2 = "son";
         } elseif ($env === "02" || $env === "12") {
             $initials = "D/o";
+            $initials2 = "daughter";
         }
     }
 
@@ -239,6 +227,14 @@ function english_to_krutidev($text)
 
     // Hindi name in KrutiDev (for Hindi section)
     $studentNameHiKruti = english_to_krutidev($studentNameEn);
+    $fatherHusbandEnHiKruti = english_to_krutidev($fatherHusbandEn);
+    $initialsHiKruti = english_to_krutidev($initials2);
+    $programHiKruti = english_to_krutidev($program);
+    $specializationHiKruti = english_to_krutidev($specialization);
+    $passingMonthHiKruti = english_to_krutidev($passingMonth);
+    $passingYearHiKruti = english_to_krutidev($passingYear);
+    $divisionHiKruti = english_to_krutidev($division);
+
 ?>
     <div class="doc-container"
         id="<?= htmlspecialchars($enroll) ?>"
@@ -350,8 +346,7 @@ function english_to_krutidev($text)
                     <td style="border:none !important;
                                padding-right: 1cm !important;">
                         <img src="uploaded_images/<?= urlencode($info['uploaded_image'] ?? '-') ?>"
-                            style="width:2cm; height:2cm;"
-                            alt="Student Picture" />
+                            style="width:2cm; height:2cm;" alt="Student Picture" />
                     </td>
                 </tr>
 
@@ -367,7 +362,6 @@ function english_to_krutidev($text)
                     </td>
                 </tr>
 
-                <!-- University name – KrutiDev -->
                 <tr>
                     <td class="text-center" colspan="3"
                         style="border:none !important;
@@ -379,7 +373,6 @@ function english_to_krutidev($text)
                     </td>
                 </tr>
 
-                <!-- Act line – mixed KrutiDev + Unicode digits -->
                 <tr>
                     <td class="text-center" colspan="3"
                         style="border:none !important;
@@ -394,7 +387,6 @@ function english_to_krutidev($text)
                     </td>
                 </tr>
 
-                <!-- Hindi KrutiDev paragraph -->
                 <tr>
                     <td class="text-center" colspan="3"
                         style="border:none !important;
@@ -406,7 +398,6 @@ function english_to_krutidev($text)
                     </td>
                 </tr>
 
-                <!-- Student name in Hindi (KrutiDev) -->
                 <tr>
                     <td class="text-center" colspan="3"
                         style="border:none !important;
@@ -417,41 +408,13 @@ function english_to_krutidev($text)
                     </td>
                 </tr>
 
-                <!-- Father/Husband name line (still English – you can localise later if you want) -->
                 <tr>
                     <td class="text-center" colspan="3"
                         style="border:none !important;
                                font-size: 14.5pt;
-                               padding-top: 0.5cm !important;">
-                        <?= htmlspecialchars($initials) ?>
-                        <?= htmlspecialchars(titleCase($fatherHusbandEn) ?: '-') ?>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="text-center" colspan="3"
-                        style="border:none !important;
-                               font-size: 14.5pt;
-                               padding-top: 0.5cm !important;">
-                        dks
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="text-center" colspan="3"
-                        style="border:none !important;
-                               font-size: 14.5pt;
-                               padding-top: 0.5cm !important;">
-                        <?= htmlspecialchars($program) ?>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="text-center" colspan="3"
-                        style="border:none !important;
-                               font-size: 14.5pt;
-                               padding-top: 0.5cm !important;">
-                        <?= htmlspecialchars($specialization) ?>
+                               padding-top: 0.5cm !important;
+                               font-family:'KrutiDev' !important;">
+                        <?= htmlspecialchars($initialsHiKruti) ?> <?= htmlspecialchars($fatherHusbandEnHiKruti) ?>
                     </td>
                 </tr>
 
@@ -461,7 +424,37 @@ function english_to_krutidev($text)
                                font-size: 14.5pt;
                                padding-top: 0.5cm !important;
                                font-family:'KrutiDev' !important;">
-                        dh mikfèk «HDATE» esa vk;ksftr ijh{kk «H_DIVISION» Js.kh esa mÙkh.kZ djus ds mijkar vkt fnukad dks
+                        dks
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="text-center" colspan="3"
+                        style="border:none !important;
+                               font-size: 14.5pt;
+                               padding-top: 0.5cm !important;
+                               font-family:'KrutiDev' !important;">
+                        <?= htmlspecialchars($programHiKruti) ?>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="text-center" colspan="3"
+                        style="border:none !important;
+                               font-size: 14.5pt;
+                               padding-top: 0.5cm !important;
+                               font-family:'KrutiDev' !important;">
+                        <?= htmlspecialchars($specializationHiKruti) ?>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="text-center" colspan="3"
+                        style="border:none !important;
+                               font-size: 14.5pt;
+                               padding-top: 0.5cm !important;
+                               font-family:'KrutiDev' !important;">
+                        dh mikfèk <?= htmlspecialchars($passingMonthHiKruti) ?> <?= htmlspecialchars($passingYearHiKruti) ?> esa vk;ksftr ijh{kk <b><?= htmlspecialchars($divisionHiKruti) ?></b> Js.kh esa mÙkh.kZ djus ds mijkar vkt fnukad dks
                         çnku dh tkrh gSA
                     </td>
                 </tr>

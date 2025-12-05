@@ -49,9 +49,6 @@ function documentRequests()
         $reqType = trim($reqType);
         $reqType = preg_replace('/\s+/', ' ', $reqType);
 
-        // Debug
-        echo "[" . $reqType . "]";
-
         if ($reqType === "Transcript") {
             $renderedHtmls[] = renderTemplate('transcripts.php', [
                 'enrollment_no' => $enroll,

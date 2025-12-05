@@ -56,7 +56,7 @@
 
 @font-face {
   font-family: "KrutiDev";
-  src: url("../fonts/krutidev-010-hindi-font-download.ttf") format("truetype");
+  src: url("../fonts/KrutiDev.ttf") format("truetype");
   /* Replace with actual font path */
   font-weight: normal;
   font-style: normal;
@@ -89,14 +89,6 @@
 @font-face {
   font-family: "ShreeDevanagari714";
   src: url("../fonts/ShreeDevanagari714.ttf") format("truetype");
-  /* Path to the regular font */
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Lohit-Devanagari";
-  src: url("../fonts/Lohit-Devanagari.ttf") format("truetype");
   /* Path to the regular font */
   font-weight: normal;
   font-style: normal;

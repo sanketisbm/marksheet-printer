@@ -98,18 +98,6 @@
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'Lohit-Devanagari';
-    src: url('assets/fonts/Lohit-Devanagari.ttf') format('truetype');
-    /* Path to the regular font */
-    font-weight: normal;
-    font-style: normal;
-}
-
-/* body {
-        font-family: 'Calibri', sans-serif;
-    } */
-
 *,
 ::after,
 ::before {

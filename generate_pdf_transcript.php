@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require 'vendor/autoload.php'; // Include Composer autoloader
+require 'vendor/autoload.php';
 require 'dbFiles/db.php';
 
 use Dompdf\Dompdf;
@@ -13,71 +13,126 @@ header('Content-Type: application/json; charset=utf-8');
 
 define("DOMPDF_UNICODE_ENABLED", true);
 
-// Initialize DOMPDF with options
+/**
+ * Optional: remove invisible/control chars that can sometimes show as boxes
+ */
+function clean_control_chars($text)
+{
+    return preg_replace('/[\x00-\x1F\x7F\x{200B}-\x{200D}\x{FEFF}]/u', '', $text);
+}
+
+// Paths for fonts
+$fontDir      = __DIR__ . '/assets/fonts/';
+$fontCacheDir = __DIR__ . '/assets/fonts_cache/';
+
+// ----- DOMPDF OPTIONS -----
 $options = new Options();
 $options->set('isHtml5ParserEnabled', true);
 $options->set('isPhpEnabled', true);
-$options->set('defaultFont', 'arial'); // Or remove this line entirely
 $options->set('isRemoteEnabled', true);
-$options->set('isUnicodeEnabled', true); // Required for Hindi and Unicode fonts
+$options->set('isUnicodeEnabled', true);
 $options->set('isFontSubsettingEnabled', true);
 
-$options->set('margin_top', 0);    // No top margin
-$options->set('margin_right', 0);  // No right margin
-$options->set('margin_bottom', 0); // No bottom margin
-$options->set('margin_left', 0);
+// Default Latin font (for English text)
+$options->set('defaultFont', 'calibri');
+
+// Where dompdf looks for fonts / caches them
+$options->set('fontDir', $fontDir);
+$options->set('fontCache', $fontCacheDir);
+
+// Restrict file access to this folder tree
+$options->setChroot(__DIR__);
 
 $dompdf = new Dompdf($options);
 
-// Define the path to your fonts directory
-$fontDir = __DIR__ . '/assets/fonts/';
-$fontCacheDir = __DIR__ . '/assets/fonts_cache/';
+// A4 portrait (no extra margins)
+$dompdf->setPaper([0, 0, 595, 842], 'portrait');
 
-// Register fonts
-$options->set('fontDir', $fontDir);
-$options->set('fontCache', $fontCacheDir);
-// Add the font manually to DOMPDF
-$dompdf->getOptions()->set('chroot', __DIR__);
-$fontMetrics = $dompdf->getFontMetrics();
-$fontMetrics->getFont('calibri', $fontDir . 'calibri.ttf');
-$fontMetrics->getFont('calibri-bold', $fontDir . 'calibrib.ttf');
-$fontMetrics->getFont('calibri-italic', $fontDir . 'calibrii.ttf');
-$fontMetrics->getFont('calibri-bold-italic', $fontDir . 'calibriz.ttf');
-
-// Add Arial fonts
-$fontMetrics->getFont('arial', $fontDir . 'arial.ttf');
-$fontMetrics->getFont('arial-bold', $fontDir . 'arialbd.ttf');
-$fontMetrics->getFont('arial-italic', $fontDir . 'ariali.ttf');
-$fontMetrics->getFont('arial-bold-italic', $fontDir . 'arialbi.ttf');
-
-// Add Noto Sans Devanagari fonts
-$fontMetrics->getFont('Nirmala UI', $fontDir . 'Nirmala.ttf');
-$fontMetrics->getFont('Noto Sans Devanagari', $fontDir . 'NotoSansDevanagari.ttf');
-
-// Set paper size to a custom size (in points)
-$dompdf->setPaper([0, 0, 595, 842], 'portrait'); // 21.38 cm x 30.48 cm converted to points
-
-// Check if it's a POST request and content exists
+// ----- HANDLE REQUEST -----
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
-    $content = $_POST['content']; // Get content to render the PDF
+    $content = $_POST['content'];
+    $content = clean_control_chars($content);
+
+    // Get your CSS from css_t.php
     ob_start();
-    include 'css_t.php';
+    include 'css_t.php';      // this should echo CSS or <style>...</style>
     $css = ob_get_clean();
 
-    $content = $css . $content;
+    // If css_t.php outputs raw CSS (no <style> tag), wrap it
+    if (stripos($css, '<style') === false && trim($css) !== '') {
+        $css = "<style>\n" . $css . "\n</style>";
+    }
+
+    // ---- IMPORTANT: embed your fonts (including KrutiDev) ----
+    // Make sure these TTF files exist in assets/fonts/
+    // And that the font-family names match what you use in your templates
+    $fontCss = <<<CSS
+<style>
+@font-face {
+    font-family: 'KrutiDev';
+    src: url('assets/fonts/KrutiDev.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Nirmala UI';
+    src: url('assets/fonts/Nirmala.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Mangal';
+    src: url('assets/fonts/Mangal.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'calibri';
+    src: url('assets/fonts/calibri.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'arial';
+    src: url('assets/fonts/arial.ttf') format('truetype');
+}
+
+/* Do NOT override your inline font-family styles here.
+   This just makes sure dompdf knows what 'KrutiDev', 'Nirmala UI', etc. mean. */
+</style>
+CSS;
+
+    // Build full HTML
+    $html = '<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+' . $fontCss . $css . '
+</head>
+<body>' . $content . '</body>
+</html>';
 
     try {
-        // Load the HTML content
-
-        $dompdf->loadHtml($content);
+        $dompdf->loadHtml($html, 'UTF-8');
         $dompdf->render();
-        $pdfOutputPath = "generated_documents/" . date('Ymd') . "_" . time() . "_" . 'transcript.pdf';
+
+        // Ensure output folder exists
+        $outDir = __DIR__ . '/generated_documents';
+        if (!is_dir($outDir)) {
+            mkdir($outDir, 0777, true);
+        }
+
+        $fileName = date('Ymd') . "_" . time() . "_transcript.pdf";
+        $pdfOutputPath = $outDir . '/' . $fileName;
 
         file_put_contents($pdfOutputPath, $dompdf->output());
-        echo json_encode(['success' => true, 'message' => 'PDF generated successfully', 'pdf_path' => $pdfOutputPath]);
+
+        echo json_encode([
+            'success'  => true,
+            'message'  => 'PDF generated successfully',
+            'pdf_path' => 'generated_documents/' . $fileName,
+        ]);
     } catch (Exception $e) {
-        echo json_encode(['success' => false, 'message' => 'Error generating PDF: ' . $e->getMessage()]);
+        echo json_encode([
+            'success' => false,
+            'message' => 'Error generating PDF: ' . $e->getMessage(),
+        ]);
     }
 } else {
-    echo json_encode(['success' => false, 'message' => 'No content received or invalid request']);
+    echo json_encode([
+        'success' => false,
+        'message' => 'No content received or invalid request',
+    ]);
 }
