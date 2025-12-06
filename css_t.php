@@ -140,7 +140,6 @@
     .doc-container {
         width: 21cm;
         height: auto;
-        min-height: 26cm;
         padding: 0.8cm 2cm 1.3cm 2cm;
         position: relative;
         box-sizing: border-box;

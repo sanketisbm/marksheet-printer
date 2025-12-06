@@ -63,9 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
         $css = "<style>\n" . $css . "\n</style>";
     }
 
-    // ---- IMPORTANT: embed your fonts (including KrutiDev) ----
-    // Make sure these TTF files exist in assets/fonts/
-    // And that the font-family names match what you use in your templates
     $fontCss = <<<CSS
 <style>
 @font-face {
@@ -73,7 +70,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
     src: url('assets/fonts/KrutiDev.ttf') format('truetype');
 }
 @font-face {
-    font-family: 'Nirmala UI';
+    font-family: 'NirmalaUI';         /* alias without space */
+    font-style: normal;
+    font-weight: 400;
+    src: url('assets/fonts/Nirmala.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Nirmala UI';        /* original name if you want */
+    font-style: normal;
+    font-weight: 400;
     src: url('assets/fonts/Nirmala.ttf') format('truetype');
 }
 @font-face {
