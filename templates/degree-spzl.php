@@ -1637,13 +1637,13 @@ function english_to_krutidev($text)
     $specialization  = $info['specialization'] ?? '-';
     $passingYearRaw  = $info['passing_year'] ?? '';
     $division        = $info['division'] ?? '-';
-    $issued_date_raw = $info['issued_date'] ?? '';
+    $issued_date_raw = $info['print_date'] ?? '';
     
     if (!empty($issued_date_raw) && $issued_date_raw !== '-') {
         $dateObj = new DateTime($issued_date_raw);
-        $issued_date = $dateObj->format('d F, Y');   
+        $print_date = $dateObj->format('d F, Y');   
     } else {
-        $issued_date = '-';
+        $print_date = '-';
     }
 
     $passingParts = explode('-', $passingYearRaw);
@@ -1693,7 +1693,7 @@ function english_to_krutidev($text)
                                font-size:11pt;
                                font-weight:400;
                                text-align: right !important;line-height: 1;padding-right: 0.1cm">
-                        D. No. 0<?= $sl_no ?>
+                        D. No. 0<?= htmlspecialchars($info['doc_no'] ?? $sl_no) ?>
                     </td>
                 </tr>
             </table>
@@ -1737,7 +1737,7 @@ function english_to_krutidev($text)
                                 <td class="text-center"
                                     style="border:none !important;
                                            font-size:15pt;line-height: 1;padding: 0 !important;">
-                                    <?= htmlspecialchars($initials) ?>
+                                    <?= htmlspecialchars($info['prefix_eng'] ?? $initials) ?>
                                     <?= htmlspecialchars(titleCase($fatherHusbandEn) ?: '-') ?>
                                 </td>
                             </tr>
@@ -1838,7 +1838,7 @@ function english_to_krutidev($text)
                                padding: 0;
                                padding-top: 0.5cm !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
-                        <?= htmlspecialchars($studentNameHiKruti) ?>
+                        <?= htmlspecialchars($info['student_name_hindi'] ?? $studentNameHiKruti) ?>
                     </td>
                 </tr>
 
@@ -1848,7 +1848,7 @@ function english_to_krutidev($text)
                                font-size: 16pt;
                                padding: 0;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
-                        <?= htmlspecialchars($initialsHiKruti) ?> <?= htmlspecialchars($fatherHusbandEnHiKruti) ?>
+                        <?= htmlspecialchars($info['prefix_hindi'] ?? $initialsHiKruti) ?> <?= htmlspecialchars($info['father_name_hindi'] ?? $fatherHusbandEnHiKruti) ?>
                     </td>
                 </tr>
 
@@ -1870,7 +1870,7 @@ function english_to_krutidev($text)
                                font-size: 20pt;
                                padding: 0 !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
-                        <?= htmlspecialchars($programHiKruti) ?>
+                        <?= htmlspecialchars($info['program_name_hindi'] ?? $programHiKruti) ?>
                     </td>
                 </tr>
 
@@ -1879,7 +1879,7 @@ function english_to_krutidev($text)
                         style="border:none !important;
                                font-size: 16pt;
                                padding: 0 !important;">
-                        (<span style="font-family:KrutiDev, sans-serif !important;line-height: 1;"><?= htmlspecialchars($specializationHiKruti) ?></span>)
+                        (<span style="font-family:KrutiDev, sans-serif !important;line-height: 1;"><?= htmlspecialchars($info['splz_name_hindi'] ?? $specializationHiKruti) ?></span>)
                     </td>
                 </tr>
 
@@ -1892,7 +1892,7 @@ function english_to_krutidev($text)
                                padding-left: 1cm !important;
                                padding-right: 1cm !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
-                        dh mikfèk <?= htmlspecialchars($passingMonthHiKruti) ?> <?= htmlspecialchars($passingYearHiKruti) ?> esa vk;ksftr ijh{kk <b><?= htmlspecialchars($divisionHiKruti) ?></b> Js.kh esa mÙkh.kZ djus ds mijkar vkt fnukad dks
+                        dh mikfèk <?= htmlspecialchars($info['passout_session_hindi'] ?? $passingMonthHiKruti. " " .$passingYearHiKruti) ?> esa vk;ksftr ijh{kk <b><?= htmlspecialchars($info['division_hindi'] ?? $divisionHiKruti) ?></b> Js.kh esa mÙkh.kZ djus ds mijkar vkt fnukad dks
                         çnku dh tkrh gSA
                     </td>
                 </tr>
@@ -1904,7 +1904,7 @@ function english_to_krutidev($text)
                                padding: 0 !important;
                                padding-left: 0.5cm !important;
                                padding-top: 0.5cm !important;line-height: 1;">
-                        Date: <?= htmlspecialchars($issued_date) ?>
+                        Date: <?= htmlspecialchars($print_date) ?>
                     </td>
                 </tr>
             </table>

@@ -14,9 +14,6 @@ require 'dbFiles/db.php';
 $jsonData = file_get_contents('php://input');
 $data = json_decode($jsonData, true);
 
-// print_r($data);
-// // die();
-
 if (json_last_error() !== JSON_ERROR_NONE) {
     echo json_encode([
         'status' => 'error',
@@ -28,8 +25,6 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 
 
 foreach ($data as $record) {
-    // print_r($record);
-
     $columns = [
         'request_type',
         'student_name',
@@ -47,14 +42,21 @@ foreach ($data as $record) {
         'doc_no',
         'student_name_hindi',
         'father_name_hindi',
-        'qr_code_data',
+        'branch',
+        'program_name_hindi',
+        'splz_name_hindi',
+        'passout_session_hindi',
+        'division_hindi',
+        'passout_session_hindi',
+        'prefix_eng',
+        'prefix_hindi',
         'uploaded_image',
+        'print_date',
         'issued_date'
     ];
 
     $escaped_values = [];
     foreach ($columns as $column) {
-        // Only escape if the value exists and is a string (we don't want to escape numbers or dates)
         if (isset($record[$column])) {
             $escaped_values[$column] =  $record[$column];
         } else {

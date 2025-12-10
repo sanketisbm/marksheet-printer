@@ -23,14 +23,14 @@ if (empty($data) || !is_array($data)) {
             <table style="width:16cm;">
                 <tr>
                     <td style="border:none !important;font-size:12pt;font-weight:400;text-align: left !important;">S. No:
-                        <?= $sl_no ?></td>
+                        <?= htmlspecialchars($info['doc_no'] ?? $sl_no) ?></td>
                     <td style="border:none !important;font-size:12pt;font-weight:400;text-align: right !important;"> Date:
                         <?= date('d-m-Y') ?> </td>
                 </tr>
             </table>
 
             <p style="margin-top: 1.5cm;font-size: 12pt;width:16cm">
-                Enrollment No:- <?= htmlspecialchars($resultData['enrollment_no'] ?? $info['enrollment_no'] ?? '-') ?>
+                Enrollment No:- <?= htmlspecialchars($info['enrollment_no'] ?? '-') ?>
             </p>
 
             <p class="text-center"
@@ -39,11 +39,11 @@ if (empty($data) || !is_array($data)) {
             </p>
 
             <p style="font-size: 16pt;line-height:  calc(2 * 1em + 5pt);margin-top:1.7cm;width:16cm;word-spacing: 5px;text-indent:1.27cm;">It has been certified that Mr. / Mrs. /
-                Ms. <b><?= htmlspecialchars($resultData['student_name'] ?? $info['student_name'] ?? '-') ?></b> S/o /
-                D/o / W/o. <?= htmlspecialchars($resultData['father_name'] ?? $info['father_name'] ?? '-') ?> is qualified to
-                receive the Degree of <?= htmlspecialchars($resultData['program_print_name'] ?? $info['program'] ?? '-') ?>, having
+                Ms. <b><?= htmlspecialchars($info['student_name'] ?? '-') ?></b> S/o /
+                D/o / W/o. <?= htmlspecialchars($info['father_name'] ?? '-') ?> is qualified to
+                receive the Degree of <?= htmlspecialchars($info['program'] ?? '-') ?>, having
                 successfully passed the examination in the year
-                <?= htmlspecialchars(explode("-", $resultData['exam_session'])[1] ?? $info['exam_session'] ?? '-') ?> and
+                <?= htmlspecialchars($info['exam_session'] ?? '-') ?> and
                 has been placed in <?= htmlspecialchars($resultData['cDivision'] ?? $info['cDivision'] ?? '-') ?> Division.</p>
 
             <p style="text-align:right;font-size:14pt;font-weight:400;margin-top:5.8cm;width:16cm;">

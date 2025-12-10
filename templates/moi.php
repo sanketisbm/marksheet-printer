@@ -7,8 +7,6 @@ if (empty($data) || !is_array($data)) {
 ?>
 
 <?php foreach ($data as $info):
-    $sl_no = random_int(10000000, 99999999);
-
     $templateSql    = "SELECT * FROM results WHERE enrollment_no = '{$info['enrollment_no']}' ORDER BY period DESC";
     $templateResult = mysqli_query($conn, $templateSql);
 
@@ -21,7 +19,7 @@ if (empty($data) || !is_array($data)) {
     <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>">
         <div style="margin-top:4.8cm; display: flex; flex-direction:column;">
             <p style="font-size: 14pt;font-weight: 400;width:17cm;text-align:right;">
-                Date: <?php echo date('d-m-Y'); ?> </p>
+                Date: <?= htmlspecialchars($info['print_date'] ?? date('d-m-Y')) ?> </p>
 
             <p class="text-center" style="margin-top: 2cm;font-size: 16pt;font-weight: bold;text-decoration: underline;width:17cm">
                 Medium of Instruction
@@ -29,9 +27,9 @@ if (empty($data) || !is_array($data)) {
 
             <div style="display:flex;flex-direction:column;margin-top:1.5cm;width:17cm">
                 <p style="font-size: 13pt;margin-bottom: 10pt;line-height: 1.25;">
-                    This is to certify that <?= htmlspecialchars($resultData['student_name'] ?? $info['student_name'] ?? '-') ?>, was
-                    a student of <?= htmlspecialchars($resultData['program_print_name'] ?? $info['program'] ?? '-') ?>, bearing the
-                    enrolment number <?= htmlspecialchars($resultData['enrollment_no'] ?? $info['enrollment_no'] ?? '-') ?> has
+                    This is to certify that <?= htmlspecialchars($info['student_name'] ?? '-') ?>, was
+                    a student of <?= htmlspecialchars($info['program'] ?? '-') ?>, bearing the
+                    enrolment number <?= htmlspecialchars($info['enrollment_no'] ?? '-') ?> has
                     completed the course successfully.
                 </p>
                 <p style="font-size: 13pt;line-height: 1.25;">

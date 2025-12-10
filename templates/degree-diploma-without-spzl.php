@@ -1637,13 +1637,13 @@ function english_to_krutidev($text)
     $specialization  = $info['specialization'] ?? '-';
     $passingYearRaw  = $info['passing_year'] ?? '';
     $division        = $info['division'] ?? '-';
-    $issued_date_raw = $info['issued_date'] ?? '';
+    $issued_date_raw = $info['print_date'] ?? '';
 
     if (!empty($issued_date_raw) && $issued_date_raw !== '-') {
         $dateObj = new DateTime($issued_date_raw);
-        $issued_date = $dateObj->format('d F, Y');
+        $print_date = $dateObj->format('d F, Y');
     } else {
-        $issued_date = '-';
+        $print_date = '-';
     }
 
     $passingParts = explode('-', $passingYearRaw);
@@ -1658,12 +1658,18 @@ function english_to_krutidev($text)
     $specializationHiKruti = english_to_krutidev($specialization);
     $passingMonthHiKruti = english_to_krutidev($passingMonth);
     $passingYearHiKruti = english_to_krutidev($passingYear);
-    $divisionHiKruti = english_to_krutidev($division);
 
+    if ($division === "FIRST") {
+        $divisionHiKruti = "प्रथम";
+    } elseif ($division === "SECOND") {
+        $divisionHiKruti = "द्वितीय";
+    } elseif ($division === "THIRD") {
+        $divisionHiKruti = "तृतीय";
+    } elseif ($division === "Distinction") {
+        $divisionHiKruti = "डिस्टिंक्शन";
+    }
 ?>
-    <div class="doc-container"
-        id="<?= htmlspecialchars($enroll) ?>"
-        style="padding-left: 1.2cm !important;
+    <div class="doc-container" id="<?= htmlspecialchars($enroll) ?>" style="padding-left: 1.2cm !important;
                 padding-right: 1.2cm !important;
                 padding-top: 4.5cm !important;
                 padding-bottom: 2cm !important;
@@ -1672,8 +1678,7 @@ function english_to_krutidev($text)
         <div style="display: flex; flex-direction:column;">
             <table style="width: 18.6cm !important;">
                 <tr>
-                    <td class="text-left" colspan="2"
-                        style="border:none !important;
+                    <td class="text-left" colspan="2" style="border:none !important;
                         font-family: 'Nirmala UI', 'Mangal', sans-serif !important;
                         font-size:9pt;line-height: 1;">
                         नामांकन संख्या
@@ -1687,20 +1692,18 @@ function english_to_krutidev($text)
                         Enrollment No.
                         <?= htmlspecialchars($enroll ?: '-') ?>
                     </td>
-                    <td class="text-right"
-                        style="border:none !important;
+                    <td class="text-right" style="border:none !important;
                                font-size:11pt;
                                font-weight:400;
                                text-align: right !important;line-height: 1;padding-right: 0.1cm">
-                        D. No. 0<?= $sl_no ?>
+                        D. No. 0<?= htmlspecialchars($info['doc_no'] ?? $sl_no) ?>
                     </td>
                 </tr>
             </table>
 
             <table style="width: 18.3cm !important;">
                 <tr>
-                    <td class="text-center" colspan="3"
-                        style="border:none !important;
+                    <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 13.5pt;
                                padding-top: 0.6cm !important;line-height: 1;">
                         Upon the recommendation of the Academic Council and successful completion of the
@@ -1709,15 +1712,13 @@ function english_to_krutidev($text)
                 </tr>
 
                 <tr>
-                    <td
-                        style="width:2cm;
+                    <td style="width:2cm;
                                height:2cm;
                                border:none !important;
                                padding-top: 0 !important;
                                padding-left: 1.2cm !important;">
                         <img src="http://api.qrserver.com/v1/create-qr-code/?data=<?= urlencode($info['qr_code_data'] ?? '-') ?>&size=300x300"
-                            style="width:2cm; height:2cm;"
-                            alt="QR Code" />
+                            style="width:2cm; height:2cm;" alt="QR Code" />
                     </td>
 
                     <td style="border:none !important;
@@ -1725,24 +1726,21 @@ function english_to_krutidev($text)
                                width: 100%;">
                         <table style="width: 95%;">
                             <tr>
-                                <td class="text-center"
-                                    style="border:none !important;
+                                <td class="text-center" style="border:none !important;
                                            font-size:20pt;
                                            font-weight: bold;line-height: 1;padding: 0 !important;">
                                     <?= htmlspecialchars(titleCase($studentNameEn) ?: '-') ?>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-center"
-                                    style="border:none !important;
+                                <td class="text-center" style="border:none !important;
                                            font-size:15pt;line-height: 1;padding: 0 !important;">
-                                    <?= htmlspecialchars($initials) ?>
+                                    <?= htmlspecialchars($info['prefix_eng'] ?? $initials) ?>
                                     <?= htmlspecialchars(titleCase($fatherHusbandEn) ?: '-') ?>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-center"
-                                    style="border:none !important;
+                                <td class="text-center" style="border:none !important;
                                            font-size:14.5pt;
                                            padding: 0;
                                            padding-top: 0.2cm !important;
@@ -1751,16 +1749,14 @@ function english_to_krutidev($text)
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-center"
-                                    style="border:none !important;
+                                <td class="text-center" style="border:none !important;
                                            font-size:17.5pt;
                                            font-weight: bold;line-height: 1;padding: 0 !important;">
                                     <?= htmlspecialchars($program) ?>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-center"
-                                    style="border:none !important;
+                                <td class="text-center" style="border:none !important;
                                            font-size:15pt;
                                            font-weight: bold;line-height: 0.8;padding: 0 !important;">
                                     (<?= htmlspecialchars($specialization) ?>)
@@ -1777,8 +1773,7 @@ function english_to_krutidev($text)
                 </tr>
 
                 <tr>
-                    <td class="text-center" colspan="3"
-                        style="border:none !important;
+                    <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 14.5pt;
                                padding: 0;
                                padding-top: 0.3cm !important;line-height: 1;">
@@ -1790,8 +1785,7 @@ function english_to_krutidev($text)
                 </tr>
 
                 <tr>
-                    <td class="text-center" colspan="3"
-                        style="border:none !important;
+                    <td class="text-center" colspan="3" style="border:none !important;
                                font-weight: bold;
                                font-size: 35pt;
                                padding: 0;
@@ -1802,23 +1796,22 @@ function english_to_krutidev($text)
                 </tr>
 
                 <tr>
-                    <td class="text-center" colspan="3"
-                        style="border:none !important;
+                    <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 9pt;
                                padding: 0 !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 0.5;">
-                        NÙkhlx<+ futh fo'ofo|ky; ¼LFkkiuk ,oa lapkyu½ vf/kfu;e]
-                            <span style="font-family: Mangal, sans-serif !important; font-size: 9pt !important;">२००५</span>
+                        NÙkhlx<+ futh fo'ofo|ky; ¼LFkkiuk ,oa lapkyu½ vf/kfu;e] <span
+                            style="font-family: Mangal, sans-serif !important; font-size: 9pt !important;">२००५</span>
                             ,oa fo'ofo|ky; vuqnku vk;ksx ¼;w-th-lh-½ vf/kfu;e
                             <span style="font-family: Mangal, sans-serif !important; font-size: 9pt !important;">१९५६</span>
                             dh /kkjk
-                            <span style="font-family: Mangal, sans-serif !important; font-size: 9pt !important;">२</span>¼ ,Q½ vUrxZr LFkkfir
+                            <span style="font-family: Mangal, sans-serif !important; font-size: 9pt !important;">२</span>¼
+                            ,Q½ vUrxZr LFkkfir
                     </td>
                 </tr>
 
                 <tr>
-                    <td class="text-center" colspan="3"
-                        style="border:none !important;
+                    <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 15.5pt;
                                padding: 0;
                                padding-top: 0.3cm !important;
@@ -1831,29 +1824,27 @@ function english_to_krutidev($text)
                 </tr>
 
                 <tr>
-                    <td class="text-center" colspan="3"
-                        style="border:none !important;
+                    <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 24pt;
                                padding: 0;
                                padding-top: 0.5cm !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
-                        <?= htmlspecialchars($studentNameHiKruti) ?>
+                        <?= htmlspecialchars($info['student_name_hindi'] ?? $studentNameHiKruti) ?>
                     </td>
                 </tr>
 
                 <tr>
-                    <td class="text-center" colspan="3"
-                        style="border:none !important;
+                    <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 16pt;
                                padding: 0;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
-                        <?= htmlspecialchars($initialsHiKruti) ?> <?= htmlspecialchars($fatherHusbandEnHiKruti) ?>
+                        <?= htmlspecialchars($info['prefix_hindi'] ?? $initialsHiKruti) ?>
+                        <?= htmlspecialchars($info['father_name_hindi'] ?? $fatherHusbandEnHiKruti) ?>
                     </td>
                 </tr>
 
                 <tr>
-                    <td class="text-center" colspan="3"
-                        style="border:none !important;
+                    <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 14pt;
                                padding: 0 !important;
                                padding-top: 0.2cm;
@@ -1864,46 +1855,46 @@ function english_to_krutidev($text)
                 </tr>
 
                 <tr>
-                    <td class="text-center" colspan="3"
-                        style="border:none !important;
+                    <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 20pt;
                                padding: 0 !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
-                        <?= htmlspecialchars($programHiKruti) ?>
+                        <?= htmlspecialchars($info['program_name_hindi'] ?? $programHiKruti) ?>
                     </td>
                 </tr>
 
                 <tr>
-                    <td class="text-center" colspan="3"
-                        style="border:none !important;
+                    <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 16pt;
                                padding: 0 !important;">
-                        (<span style="font-family:KrutiDev, sans-serif !important;line-height: 1;"><?= htmlspecialchars($specializationHiKruti) ?></span>)
+                        (<span
+                            style="font-family:KrutiDev, sans-serif !important;line-height: 1;"><?= htmlspecialchars($info['splz_name_hindi'] ?? $specializationHiKruti) ?></span>)
                     </td>
                 </tr>
 
                 <tr>
-                    <td class="text-center" colspan="3"
-                        style="border:none !important;
+                    <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 15.5pt;
                                padding: 0 !important;
                                padding-top: 0.5cm !important;
                                padding-left: 1cm !important;
                                padding-right: 1cm !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
-                        dh mikfèk <?= htmlspecialchars($passingMonthHiKruti) ?> <?= htmlspecialchars($passingYearHiKruti) ?> esa vk;ksftr ijh{kk <b><?= htmlspecialchars($divisionHiKruti) ?></b> Js.kh esa mÙkh.kZ djus ds mijkar vkt fnukad dks
+                        dh mikfèk
+                        <?= htmlspecialchars($info['passout_session_hindi'] ?? $passingMonthHiKruti . " " . $passingYearHiKruti) ?>
+                        esa vk;ksftr ijh{kk <b><?= htmlspecialchars($info['division_hindi'] ?? $divisionHiKruti) ?></b> Js.kh esa mÙkh.kZ djus ds
+                        mijkar vkt fnukad dks
                         çnku dh tkrh gSA
                     </td>
                 </tr>
 
                 <tr>
-                    <td class="text-left" colspan="3"
-                        style="border:none !important;
+                    <td class="text-left" colspan="3" style="border:none !important;
                                font-size: 11pt;
                                padding: 0 !important;
                                padding-left: 0.5cm !important;
                                padding-top: 0.5cm !important;line-height: 1;">
-                        Date: <?= htmlspecialchars($issued_date) ?>
+                        Date: <?= htmlspecialchars($print_date) ?>
                     </td>
                 </tr>
             </table>

@@ -62,9 +62,9 @@ while ($row = mysqli_fetch_assoc($transcript)) {
             }
 
             $grouped[$enroll]['student_info'] = [
-                'student_name'   => $resultData['student_name'] ?? '',
-                'enrollment_no'  => $resultData['enrollment_no'] ?? '',
-                'father_name'    => $resultData['father_name'] ?? '',
+                'student_name'   => '',
+                'enrollment_no'  => '',
+                'father_name'    => '',
                 'program'        => $resultData['program'] ?? '',
                 'specialization' => $resultData['stream'] ?? '',
                 'exam_session'   => $resultData['exam_session'] ?? '',

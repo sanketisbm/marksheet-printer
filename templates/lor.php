@@ -18,7 +18,7 @@ if (empty($data) || !is_array($data)) {
     <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>">
         <div style="margin-top:4.5cm; display: flex; flex-direction:column;">
             <p style="font-size: 12pt;font-weight: 400;width:17cm;text-align:right;">
-                Date: <?php echo date('d-m-Y'); ?> </p>
+                Date: <?= htmlspecialchars($info['print_date'] ?? date('d-m-Y')) ?> </p>
 
             <p class="text-center"
                 style="margin-top: 1.5cm;font-size: 14pt;font-weight: bold;text-decoration: underline;width:17cm">
@@ -36,8 +36,8 @@ if (empty($data) || !is_array($data)) {
                     institution. </p>
 
                 <p style="font-size: 12pt;margin-bottom: 10pt;line-height: 1.25;">
-                    <?= htmlspecialchars($resultData['student_name'] ?? $info['student_name'] ?? '-') ?> has completed
-                    <?= htmlspecialchars($resultData['program_print_name'] ?? $info['program'] ?? '-') ?> with first
+                    <?= htmlspecialchars($info['student_name'] ?? '-') ?> has completed
+                    <?= htmlspecialchars($info['program'] ?? '-') ?> with first
                     division. <?= htmlspecialchars($initials ?? 'He/She') ?> is a
                     hard-working student and has good
                     communication skills. <?= htmlspecialchars($initials ?? 'He/She') ?> has pleasing manner and is lively,
@@ -48,7 +48,7 @@ if (empty($data) || !is_array($data)) {
                     pursuits and would like to recommend for a place master’s programme in your institution.</p>
 
                 <p style="font-size: 12pt;margin-bottom: 10pt;line-height: 1.25;">I hope
-                    <?= htmlspecialchars($resultData['student_name'] ?? $info['student_name'] ?? '-') ?> gets to study the
+                    <?= htmlspecialchars($info['student_name'] ?? '-') ?> gets to study the
                     preferred course. </p>
 
                 <p style="font-size: 12pt;margin-bottom: 10pt;line-height: 1.25;">Thanking you. </p>
