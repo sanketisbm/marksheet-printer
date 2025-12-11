@@ -94,6 +94,7 @@ while ($resultData = mysqli_fetch_assoc($templateResult)) {
     // Accumulate grand totals for this enrollment
     $grand_total     += (float)$resultData['Ext_max_total'] + (float)$resultData['int_max_total'];
     $grand_total_obt += (float)$resultData['total_obt'];
+    $student_info['division']         = $resultData['cDivision'] ?? ''; // or compute based on % if you want
 }
 
 // After processing all result rows for this enrollment
@@ -103,7 +104,6 @@ $percentage = $grand_total > 0 ? ($grand_total_obt / $grand_total) * 100 : 0;
 $student_info['grand_total']      = $grand_total;
 $student_info['grand_total_obt']  = $grand_total_obt;
 $student_info['percentage']       = $percentage;
-$student_info['division']         = $resultData['cDivision'] ?? ''; // or compute based on % if you want
 $student_info['doi']              = date('d/m/Y');
 
 if (!function_exists('formatSemester')) {

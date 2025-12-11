@@ -1,6 +1,6 @@
 <div class="d-flex w-100 justify-content-end " style="margin-top:4.8cm; width: 18.92cm !important;">
     <h4 class="text-end mt-2 font-14-5pt" style="font-size: 14.5pt;font-family:  Arial, sans-serif; font-weight: 400;">
-        No. <?php $sl_no ?> </h4>
+        No. <?php echo $sl_no ?> </h4>
 </div>
 
 <div class="marksheet mb-0 margin-0-5" style="margin-top:0.5cm;width: 18.92cm !important;">

@@ -11,7 +11,7 @@ $id = intval($_POST['id']);
 $targetDir = "../uploaded_images/";
 if (!is_dir($targetDir)) mkdir($targetDir);
 
-$filename = time() . "_" . basename($_FILES["image"]["name"]);
+$filename = $_POST['enrollmentNo'] . ".png";
 $targetFile = $targetDir . $filename;
 
 if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
@@ -27,4 +27,3 @@ if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
 } else {
     echo "upload_error";
 }
-?>
