@@ -32,7 +32,7 @@ foreach ($data as $info):
                     <td class="text-left" colspan="2" style="border:none !important;
                         font-family: Mangal, sans-serif !important;
                         font-size:9pt;line-height: 1;">
-                        पंजीकरण संख्या
+                        पंजीकरण <span style="font-family:'KrutiDev' !important;font-size:12pt;line-height:1;">la[;k</span>
                     </td>
                 </tr>
                 <tr>
@@ -184,7 +184,7 @@ foreach ($data as $info):
                                font-size: 24pt;
                                padding: 0;
                                padding-top: 0.5cm !important;
-                               font-family:Mangal, sans-serif !important;line-height: 1;">
+                               font-family:Mangal, sans-serif !important;line-height: 0.5;">
                         <?= htmlspecialchars($info['student_name_hindi'] ?? '-') ?>
                     </td>
                 </tr>
@@ -193,7 +193,7 @@ foreach ($data as $info):
                     <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 16pt;
                                padding: 0;
-                               font-family:Mangal, sans-serif !important;line-height: 0.5;">
+                               font-family:Mangal, sans-serif !important;line-height: 1;">
                         <?= htmlspecialchars($info['prefix_hindi'] ?? '-') ?>
                         <?= htmlspecialchars($info['father_name_hindi'] ?? '-') ?>
                     </td>
@@ -281,5 +281,4 @@ foreach ($data as $info):
             </table>
         </div>
     </div>
-
 <?php endforeach; ?>

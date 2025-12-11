@@ -42,7 +42,7 @@ if (empty($data) || !is_array($data)) {
                     This is to certify that
                     <b><?= htmlspecialchars($info['student_name'] ?? '-') ?></b>
                     <?= htmlspecialchars($info['prefix_eng'] ?? $initials) ?>
-                    <b><?= htmlspecialchars($info['father_name'] ?? '-') ?></b> bearing
+                    <b><?= htmlspecialchars($info['fathers_husbands_name'] ?? '-') ?></b> bearing
                     enrolment no. <?= htmlspecialchars($info['enrollment_no'] ?? '-') ?> is
                     a student of <b><?= htmlspecialchars($info['program'] ?? '-') ?></b> in the
                     batch of

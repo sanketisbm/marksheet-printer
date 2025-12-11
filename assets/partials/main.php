@@ -33,12 +33,7 @@
 <script src="assets/summernote/summernote-bs4.min.js"></script>
 <!-- End custom js for this page-->
 
-<!-- <script src="b5-assets/vendor/libs/jquery/jquery.js"></script> -->
-<!-- <script src="b5-assets/vendor/libs/popper/popper.js"></script> -->
 <script src="b5-assets/vendor/js/bootstrap.js"></script>
-<!-- <script src="b5-assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script> -->
-<!-- <script src="b5-assets/vendor/js/menu.js"></script> -->
-<!-- <script src="b5-assets/partials/main.php"></script> -->
 <script>
   $(function () {
     $("#summernote").summernote({

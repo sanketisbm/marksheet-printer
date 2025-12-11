@@ -30,7 +30,10 @@ $resultsByPeriod = [];
 $grand_total     = 0;
 $grand_total_obt = 0;
 
+$last_stream = '';   // will store final row stream
+
 while ($resultData = mysqli_fetch_assoc($templateResult)) {
+    $last_stream = $resultData['stream'];
 
     // Build student info ONCE
     if (empty($student_info)) {
@@ -41,20 +44,26 @@ while ($resultData = mysqli_fetch_assoc($templateResult)) {
             $passing_year = $parts[1] ?? "";
         }
 
+        $programs = [
+            "masters in business administration",
+            "master in business administration",
+            "executive masters in business administration",
+            "executive master in business administration"
+        ];
+
         $student_info = [
             'student_name'   => $resultData['student_name'] ?? '',
             'enrollment_no'  => $resultData['enrollment_no'] ?? '',
             'father_name'    => $resultData['father_name'] ?? '',
             'program'        => $resultData['program_print_name'] ?? '',
-            'specialization' => in_array($resultData['program_print_name'], [
-                "Masters in Business Administration",
-                "Executive Masters In Business Administration"
-            ])
-                ? ($resultData['stream'] ?? '-')
-                : '-',
             'exam_session'   => $resultData['exam_session'] ?? '',
             'passing_year'   => $passing_year ?: '-',
         ];
+    }
+
+    // Check matching program (case-insensitive)
+    if (in_array(strtolower($resultData['program_print_name']), array_map('strtolower', $programs))) {
+        $student_info['specialization'] = $resultData['stream'] ?: '-';
     }
 
     $period = $resultData['period'];

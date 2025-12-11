@@ -46,7 +46,7 @@ if (empty($data) || !is_array($data)) {
                 <tr>
                     <td class="text-start" style="padding-top: 0.3cm !important;border:none !important;font-size:12pt;width:5cm">Father's/Husband’s name</td>
                     <td class="text-start" style="padding-top: 0.3cm !important;border:none !important;font-size:12pt;width:1.3cm">: -</td>
-                    <td class="text-start" style="padding-top: 0.3cm !important;border:none !important;font-size:12pt;"><?= htmlspecialchars($info['father_name'] ?? '-') ?></td>
+                    <td class="text-start" style="padding-top: 0.3cm !important;border:none !important;font-size:12pt;"><?= htmlspecialchars($info['fathers_husbands_name'] ?? '-') ?></td>
                 </tr>
                 <tr>
                     <td class="text-start" style="padding-top: 0.3cm !important;border:none !important;font-size:12pt;width:5cm">Mother's name</td>

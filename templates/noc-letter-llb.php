@@ -45,7 +45,7 @@ if (empty($data) || !is_array($data)) {
                 <tr>
                     <td colspan="2" style="border:none !important;font-size: 14pt;line-height: 1.15;padding-top:1.7cm;text-align: justify !important;text-indent:1.27cm;">
                         This is to certify that <?= htmlspecialchars($info['student_name'] ?? '-') ?>
-                        S/o / D/o / W/o <?= htmlspecialchars($info['father_name'] ?? '-') ?> bearing
+                        S/o / D/o / W/o <?= htmlspecialchars($info['fathers_husbands_name'] ?? '-') ?> bearing
                         enrolment no. <?= htmlspecialchars($info['enrollment_no'] ?? '-') ?> was
                         a regular student and has completed <?= htmlspecialchars($initials2 ?? 'his / her') ?> LLB course in the year
                         <?= htmlspecialchars($info['exam_session'] ?? '-') ?> with

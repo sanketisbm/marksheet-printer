@@ -32,7 +32,7 @@ if (empty($data) || !is_array($data)) {
             <div style="display:flex;flex-direction:column;margin-top:2cm;width:17cm">
                 <p style="font-size: 14pt;margin-bottom: 10pt;line-height: 1.25;">This is to certify that
                     <b><?= htmlspecialchars($info['student_name'] ?? '-') ?></b> <?= htmlspecialchars($info['prefix_eng'] ?? $prefix_eng) ?>
-                    <b><?= htmlspecialchars($info['father_name'] ?? '-') ?></b> bearing enrolment no.
+                    <b><?= htmlspecialchars($info['fathers_husbands_name'] ?? '-') ?></b> bearing enrolment no.
                     <?= htmlspecialchars($info['enrollment_no'] ?? '-') ?> has been declared passed in
                     <b><?= htmlspecialchars($info['program'] ?? '-') ?></b> examination of
                     <?= htmlspecialchars($info['exam_session'] ?? '-') ?>.

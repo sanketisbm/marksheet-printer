@@ -75,7 +75,7 @@
 
 @font-face {
     font-family: 'Mangal';
-    src: url('assets/fonts/MANGAL.ttf') format('truetype');
+    src: url('assets/fonts/Mangal Regular.ttf') format('truetype');
     /* Path to the regular font */
     font-weight: normal;
     font-style: normal;

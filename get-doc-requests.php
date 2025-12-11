@@ -50,6 +50,7 @@ foreach ($data as $record) {
         'passout_session_hindi',
         'prefix_eng',
         'prefix_hindi',
+        'department_hindi',
         'uploaded_image',
         'print_date',
         'issued_date'

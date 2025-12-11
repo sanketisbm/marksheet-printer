@@ -40,7 +40,7 @@ if (empty($data) || !is_array($data)) {
 
             <p style="font-size: 16pt;line-height:  calc(2 * 1em + 5pt);margin-top:1.7cm;width:16cm;word-spacing: 5px;text-indent:1.27cm;">It has been certified that Mr. / Mrs. /
                 Ms. <b><?= htmlspecialchars($info['student_name'] ?? '-') ?></b> S/o /
-                D/o / W/o. <?= htmlspecialchars($info['father_name'] ?? '-') ?> is qualified to
+                D/o / W/o. <?= htmlspecialchars($info['fathers_husbands_name'] ?? '-') ?> is qualified to
                 receive the Degree of <?= htmlspecialchars($info['program'] ?? '-') ?>, having
                 successfully passed the examination in the year
                 <?= htmlspecialchars($info['exam_session'] ?? '-') ?> and

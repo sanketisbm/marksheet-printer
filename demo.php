@@ -192,7 +192,7 @@ function formatSemester($period)
 
                                             <tr>
                                                 <td class="text-start border" style="height:0.6cm;padding: 0 0 0 5px;font-size: 8pt;border-color: #111 !important;vertical-align: bottom !important;font-weight: bold;">Father’s/Husband’s Name</td>
-                                                <td class="text-start border" style="height:0.6cm;padding: 0 0 0 5px;font-size: 9pt;border-color: #111 !important;vertical-align: bottom !important;"><?= $info['father_name'] ?></td>
+                                                <td class="text-start border" style="height:0.6cm;padding: 0 0 0 5px;font-size: 9pt;border-color: #111 !important;vertical-align: bottom !important;"><?= $info['fathers_husbands_name'] ?></td>
 
                                                 <td class="text-start border" style="height:0.6cm;padding: 0 0 0 5px;font-size: 9pt;border-color: #111 !important;vertical-align: bottom !important;font-weight: bold;">Course</td>
                                                 <td class="text-start border" style="height:0.6cm;padding: 0 0 0 5px;font-size: 9pt;border-color: #111 !important;vertical-align: bottom !important;"><?= $info['program'] ?></td>

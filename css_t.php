@@ -24,6 +24,22 @@
     }
 
     @font-face {
+        font-family: 'Mangal';
+        src: url('assets/fonts/Mangal Regular.ttf') format('truetype');
+        /* Path to the regular font */
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Mangal';
+        src: url('assets/fonts/Mangal Bold.ttf') format('truetype');
+        /* Path to the regular font */
+        font-weight: bold;
+        font-style: normal;
+    }
+
+    @font-face {
         font-family: 'KrutiDev';
         src: url('assets/fonts/Kruti Dev 010 Bold.ttf') format('truetype');
         /* Replace with actual font path */
