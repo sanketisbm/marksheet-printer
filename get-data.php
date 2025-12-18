@@ -245,7 +245,6 @@ foreach ($data as $record) {
         'total_marks_obt_words',
         'result',
         'division',
-        'date_of_issue',
         'qr_code_data',
         'sem1_max_marks',
         'sem1_max_obt',
@@ -280,7 +279,8 @@ foreach ($data as $record) {
         'cGrand_Total_Obt',
         'cGrand_Total_Inwords',
         'cPercentage',
-        'cDivision'
+        'cDivision',
+        'print_flag'
     ];
 
     // Add subject-specific columns
