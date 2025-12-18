@@ -189,7 +189,7 @@ foreach ($data as $info):
                                padding: 0;
                                padding-top: 0.3cm !important;
                                font-family: KrutiDev, sans-serif !important;line-height: 0.5;">
-                               
+                               हीरालाल यादव
                         <?= htmlspecialchars(unicode_to_krutidev($info['student_name_hindi']) ?? '-', ENT_QUOTES, 'UTF-8') ?>
                     </td>
                 </tr>

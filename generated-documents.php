@@ -21,46 +21,6 @@ function titleCase($string)
     return mb_convert_case($string, MB_CASE_TITLE, "UTF-8");
 }
 
-function english_to_hindi_unicode($text)
-{
-    $text = trim((string) $text);
-    if ($text === '') {
-        return $text;
-    }
-
-    // You can normalize common patterns if you want:
-    // $text = str_replace(["D/o", "S/o", "W/o"], ["Daughter of", "Son of", "Wife of"], $text);
-
-    $url = "https://inputtools.google.com/request?text=" . urlencode($text)
-        . "&itc=hi-t-i0-und&num=1";
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    // For local/XAMPP – disable SSL verification. On production, you should enable this.
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-
-    $response = curl_exec($ch);
-    curl_close($ch);
-
-    if ($response === false || $response === '') {
-        // API not reachable → fallback to original
-        return $text;
-    }
-
-    $json = json_decode($response, true);
-
-    // Correct extraction:
-    if (
-        isset($json[1][0][1][0])
-    ) {
-        return $json[1][0][1][0];
-    }
-    // If API doesn’t return proper structure
-    return $text;
-}
-
 function unicode_to_krutidev($text)
 {
     // Basic reph handling: "र्" before a consonant
@@ -490,35 +450,35 @@ function unicode_to_krutidev($text)
         // -------------------------------------
         // झ् + CONSONANT JOINTS
         // -------------------------------------
-        "झ्क" => ">`d",
-        "झ्ख" => ">`[k",
-        "झ्ग" => ">`x",
-        "झ्घ" => ">`?k",
-        "झ्च" => ">`p",
-        "झ्छ" => ">`N",
-        "झ्ज" => ">`t",
-        "झ्झ" => ">`>",
-        "झ्ट" => ">`V",
-        "झ्ठ" => ">`B",
-        "झ्ड" => ">`M",
-        "झ्ढ" => ">`<",
-        "झ्ण" => ">`.k",
-        "झ्त" => ">`r",
-        "झ्थ" => ">`Fk",
-        "झ्द" => ">`n",
-        "झ्ध" => ">`/k",
-        "झ्न" => ">`u",
-        "झ्प" => ">`i",
-        "झ्फ" => ">`Q",
-        "झ्ब" => ">`c",
-        "झ्भ" => ">`Hk",
-        "झ्म" => ">`e",
-        "झ्य" => ">`;",
-        "झ्र" => ">`j",
-        "झ्ल" => ">`y",
-        "झ्श" => ">`'k",
-        "झ्स" => ">`l",
-        "झ्ह" => ">`g",
+        "झ्क" => "÷d",
+        "झ्ख" => "÷[k",
+        "झ्ग" => "÷x",
+        "झ्घ" => "÷?k",
+        "झ्च" => "÷p",
+        "झ्छ" => "÷N",
+        "झ्ज" => "÷t",
+        "झ्झ" => "÷>",
+        "झ्ट" => "÷V",
+        "झ्ठ" => "÷B",
+        "झ्ड" => "÷M",
+        "झ्ढ" => "÷<",
+        "झ्ण" => "÷.k",
+        "झ्त" => "÷r",
+        "झ्थ" => "÷Fk",
+        "झ्द" => "÷n",
+        "झ्ध" => "÷/k",
+        "झ्न" => "÷u",
+        "झ्प" => "÷i",
+        "झ्फ" => "÷Q",
+        "झ्ब" => "÷c",
+        "झ्भ" => "÷Hk",
+        "झ्म" => "÷e",
+        "झ्य" => "÷;",
+        "झ्र" => "÷j",
+        "झ्ल" => "÷y",
+        "झ्श" => "÷'k",
+        "झ्स" => "÷l",
+        "झ्ह" => "÷g",
 
         // -------------------------------------
         // ट / ठ / ड / ढ
@@ -1548,12 +1508,6 @@ function unicode_to_krutidev($text)
         $text = str_replace($uni, $krut, $text);
     }
     return $text;
-}
-
-function english_to_krutidev($text)
-{
-    $unicode = english_to_hindi_unicode($text);
-    return unicode_to_krutidev($unicode);
 }
 
 function documentRequests()
