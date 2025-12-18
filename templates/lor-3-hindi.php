@@ -14,19 +14,18 @@ if (empty($data) || !is_array($data)) {
     } elseif ($env === "02" || $env === "12") {
         $initials = "her";
     } ?>
-    <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>">
+    <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>" style="font-family: 'Times New Roman', Times, serif !important;">
         <div style="margin-top:4.5cm; display: flex; flex-direction:column;">
             <p style="font-size: 16pt;font-weight: 400;width:17cm;text-align:right;">
                 Date: <?= htmlspecialchars($info['print_date'] ?? date('d-m-Y')) ?> </p>
 
-            <p class="text-center"
-                style="margin-top: 1.5cm;font-size: 16pt;font-weight: bold;text-decoration: underline;width:17cm">
+            <p class="text-center" style="margin-top: 1.5cm;font-size: 16pt;text-decoration: underline;width:17cm">
                 TO WHOM IT MAY CONCERN
             </p>
 
             <div style="display:flex;flex-direction:column;margin-top:1.5cm;width:17cm">
                 <p style="font-size: 16pt;margin-bottom: 10pt;line-height: 1.25;">As a professor I have had the pleasure of
-                    knowing <?= htmlspecialchars($info['student_name'] ?? '-') ?> as a bright
+                    knowing <?= htmlspecialchars(titleCase($info['student_name']) ?? '-') ?> as a bright
                     and cheerful student. </p>
 
                 <p style="font-size: 16pt;margin-bottom: 10pt;line-height: 1.25;">I am
@@ -35,7 +34,7 @@ if (empty($data) || !is_array($data)) {
                     Subject Hindi - ISBM University, India.</p>
 
                 <p style="font-size: 16pt;margin-bottom: 10pt;line-height: 1.25;">
-                    <?= htmlspecialchars($info['student_name'] ?? '-') ?> is a student with
+                    <?= htmlspecialchars(titleCase($info['student_name']) ?? '-') ?> is a student with
                     great effort,
                     endurance, diligence and scientific capabilities. </p>
 

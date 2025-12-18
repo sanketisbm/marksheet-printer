@@ -8,27 +8,9 @@ if (empty($data) || !is_array($data)) {
 
 <?php foreach ($data as $info):
     $sl_no = random_int(10000000, 99999999);
-
-    $templateSql    = "SELECT * FROM results WHERE enrollment_no = '{$info['enrollment_no']}' ORDER BY period DESC";
-    $templateResult = mysqli_query($conn, $templateSql);
-
-    if (!$templateResult || mysqli_num_rows($templateResult) == 0) {
-        return;
-    }
-
-    $resultData = mysqli_fetch_assoc($templateResult);
-    $envArray = str_split($info['enrollment_no']); // split into characters
-    $env = $envArray[2] . $envArray[3];
-    if ($env === "01" || $env === "11") {
-        $initials = "He";
-        $initials2 = "his";
-    } elseif ($env === "02" || $env === "12") {
-        $initials = "She";
-        $initials2 = "her";
-    }
 ?>
-    <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>" style="padding-left: 2.5cm !important;padding-right: 2.5cm !important;">
-        <div style="margin-top:5.2cm; display: flex; flex-direction:column;">
+    <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>" style="padding-left: 2.5cm !important;padding-right: 2.5cm !important;font-family: 'Times New Roman', Times, serif !important;">
+        <div style="margin-top:5cm; display: flex; flex-direction:column;">
             <p style="font-size: 12pt;font-weight: 400;"> S. No.: <?php htmlspecialchars($info['doc_no'] ?? $sl_no) ?> </p>
             <p style="font-size: 12pt;font-weight: 400;margin-top:0.5cm;width:16cm;text-align:right;">
                 Dated: <?= htmlspecialchars($info['print_date'] ?? date('d-m-Y')) ?> </p>
@@ -51,7 +33,7 @@ if (empty($data) || !is_array($data)) {
                 <tr>
                     <td class="text-start" style="padding-top: 0.3cm !important;border:none !important;font-size:12pt;width:5cm">Mother's name</td>
                     <td class="text-start" style="padding-top: 0.3cm !important;border:none !important;font-size:12pt;width:1.3cm">: -</td>
-                    <td class="text-start" style="padding-top: 0.3cm !important;border:none !important;font-size:12pt;"><?= htmlspecialchars($resultData['mother_name'] ?? $info['mother_name'] ?? '-') ?></td>
+                    <td class="text-start" style="padding-top: 0.3cm !important;border:none !important;font-size:12pt;"><?= htmlspecialchars($info['mother_name'] ?? '-') ?></td>
                 </tr>
                 <tr>
                     <td class="text-start" style="padding-top: 0.3cm !important;border:none !important;font-size:12pt;width:5cm">Enrollment No.</td>
@@ -63,20 +45,33 @@ if (empty($data) || !is_array($data)) {
                     <td class="text-start" style="padding-top: 0.3cm !important;border:none !important;font-size:12pt;width:1.3cm">: -</td>
                     <td class="text-start" style="padding-top: 0.3cm !important;border:none !important;font-size:12pt;">GOOD</td>
                 </tr>
-            </table>
 
-            <div style="display:flex;flex-direction:column;margin-top:0.7cm;width:16cm">
-                <p style="font-size: 14pt;margin-bottom: 10pt;line-height: 1.25;">has been a regular student of the University in class / course
-                    <b><?= htmlspecialchars($info['program'] ?? '-') ?></b> and passed <?= htmlspecialchars($initials2 ?? 'his / her') ?>
-                    examination of the above course in
-                    <b><?= htmlspecialchars($info['exam_session'] ?? '-') ?></b>.
-                </p>
-                <p style="font-size: 14pt;line-height: 1.25;">University has no objection for <?= htmlspecialchars($initials2 ?? 'his / her') ?> migration to another University/
-                    Institution / Board for the further studies.</p>
-            </div>
-            <p style="text-align:right;font-size:12pt;font-weight:400;margin-top:4.3cm;width:16cm;">
-                For Registrar
-            </p>
+                <tr>
+                    <td colspan="3" class="text-start" style="padding-top: 0.5cm !important;border:none !important;font-size: 14pt;margin-bottom: 10pt;line-height: 1.25;    text-align: justify;">
+                        has been a regular student of the University in class / course
+                        <b><?= htmlspecialchars($info['program'] ?? '-') ?></b> and passed his / her
+                        examination of the above course in
+                        <b><?= htmlspecialchars($info['passing_year'] ?? '-') ?></b>.
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td colspan="3" class="text-start" style="padding-top: 0.5cm !important;border:none !important;font-size: 14pt;margin-bottom: 10pt;line-height: 1.25;    text-align: justify;">
+                        University has no objection for his / her migration to another University/ Institution / Board for the further studies.
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3" class="text-end" style="padding-top: 2.4cm !important;border:none !important;text-align:right;font-size:12pt;font-weight:400;padding-right:1cm !important;">
+                        <img src="sign/krishna Sign.jpeg" style="width: 3cm;" alt="" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-end" style="padding-top: 0cm !important;border:none !important;text-align:right;font-size:12pt;font-weight:400;padding-right:1.5cm !important;">
+                        For Registrar
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 

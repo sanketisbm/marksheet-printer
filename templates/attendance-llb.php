@@ -27,34 +27,31 @@ if (empty($data) || !is_array($data)) {
         $prefix_eng = "D/o";
     }
 ?>
-    <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>">
+    <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>" style="padding-left: 2.5cm !important;padding-right: 2.5cm !important;font-family: 'Times New Roman', Times, serif !important;">
         <div style="margin-top:5.2cm; display: flex; flex-direction:column;">
-            <p style="font-size: 14pt;font-weight: 400;width:17cm;text-align:right;">
+            <p style="font-size: 14pt;font-weight: 400;width:16cm;text-align:right;">
                 Date: <?= htmlspecialchars($info['print_date'] ?? date('d-m-Y')) ?> </p>
 
-            <p class="text-center"
-                style="margin-top: 3cm;font-size: 16pt;font-weight: bold;text-decoration: underline;width:17cm">
+            <p class="text-center" style="margin-top: 3cm;font-size: 16pt;text-decoration: underline;width:16cm">
                 TO WHOM IT MAY CONCERN
             </p>
 
-            <div style="display:flex;flex-direction:column;margin-top:2cm;width:17cm">
+            <div style="display:flex;flex-direction:column;margin-top:2cm;width:16cm">
                 <p style="font-size: 14pt;margin-bottom: 10pt;line-height: 1.25;">This is to certify that
                     <b><?= htmlspecialchars($info['student_name'] ?? '-') ?></b>
-                    <?= htmlspecialchars($info['prefix_eng'] ?? $initials) ?>
+                    S/o / D/o / W/o
                     <b><?= htmlspecialchars($info['fathers_husbands_name'] ?? '-') ?></b> bearing enrolment no.
                     <?= htmlspecialchars($info['enrollment_no'] ?? '-') ?> has been declared
                     passed in <b><?= htmlspecialchars($info['program'] ?? '-') ?></b> examination of
-                    <?= htmlspecialchars($info['exam_session'] ?? '-') ?>.
+                    <?= htmlspecialchars($info['passing_year'] ?? '-') ?>.
                 </p>
 
                 <p style="font-size: 14pt;margin-bottom: 10pt;line-height: 1.25;">
-                    <?= htmlspecialchars($initials ?? 'He/She') ?> has been attending the class and
-                    <?= htmlspecialchars($initials2 ?? 'his/her') ?> attendance was satisfactory.
+                    He/She has been attending the class and his/her attendance was satisfactory.
                 </p>
-
             </div>
 
-            <div style="width:17cm; margin-top:4cm;">
+            <div style="width:16cm; margin-top:4cm;">
                 <p style="font-size: 14pt;line-height: 1.25;">ISBM University</p>
                 <p style="font-size: 14pt;line-height: 1.25;">India</p>
             </div>

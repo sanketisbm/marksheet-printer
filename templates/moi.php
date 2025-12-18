@@ -6,34 +6,25 @@ if (empty($data) || !is_array($data)) {
 }
 ?>
 
-<?php foreach ($data as $info):
-    $templateSql    = "SELECT * FROM results WHERE enrollment_no = '{$info['enrollment_no']}' ORDER BY period DESC";
-    $templateResult = mysqli_query($conn, $templateSql);
-
-    if (!$templateResult || mysqli_num_rows($templateResult) == 0) {
-        return;
-    }
-
-    $resultData = mysqli_fetch_assoc($templateResult);
-?>
-    <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>">
-        <div style="margin-top:4.8cm; display: flex; flex-direction:column;">
+<?php foreach ($data as $info): ?>
+    <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>" style="font-family: 'Times New Roman', Times, serif !important;">
+        <div style="margin-top:5.2cm; display: flex; flex-direction:column;">
             <p style="font-size: 14pt;font-weight: 400;width:17cm;text-align:right;">
                 Date: <?= htmlspecialchars($info['print_date'] ?? date('d-m-Y')) ?> </p>
 
-            <p class="text-center" style="margin-top: 2cm;font-size: 16pt;font-weight: bold;text-decoration: underline;width:17cm">
+            <p class="text-center" style="margin-top: 2cm;font-size: 16pt;text-decoration: underline;width:17cm">
                 Medium of Instruction
             </p>
 
             <div style="display:flex;flex-direction:column;margin-top:1.5cm;width:17cm">
-                <p style="font-size: 13pt;margin-bottom: 10pt;line-height: 1.25;">
+                <p style="font-size: 13pt;margin-bottom: 10pt;line-height: 1.25;text-align: justify !important;">
                     This is to certify that <?= htmlspecialchars($info['student_name'] ?? '-') ?>, was
                     a student of <?= htmlspecialchars($info['program'] ?? '-') ?>, bearing the
                     enrolment number <?= htmlspecialchars($info['enrollment_no'] ?? '-') ?> has
                     completed the course successfully.
                 </p>
                 <p style="font-size: 13pt;line-height: 1.25;">
-                    The medium of instruction under which he carried out the course was English.
+                    The medium of instruction under which he / she carried out the course was English.
                 </p>
             </div>
 

@@ -22,8 +22,8 @@ foreach ($data as $info):
     }
 ?>
     <div class="doc-container" id="<?= htmlspecialchars($enroll) ?>" style="padding-left: 1.2cm !important;
-                padding-right: 1.2cm !important;
-                padding-top: 4.5cm !important;
+                padding-right: 1.5cm !important;
+                padding-top: 4cm !important;
                 padding-bottom: 2cm !important;
                 ">
 
@@ -33,7 +33,7 @@ foreach ($data as $info):
                     <td class="text-left" colspan="2" style="border:none !important;
                         font-family: Mangal, sans-serif !important;
                         font-size:9pt;line-height: 1;">
-                        नामांकन <span style="font-family:'KrutiDev' !important;font-size:12pt;line-height:1;">la[;k</span>
+                        ukekadu la[;k
                     </td>
                 </tr>
                 <tr>
@@ -50,7 +50,7 @@ foreach ($data as $info):
                                font-size:11pt;
                                font-weight:400;
                                text-align: right !important;line-height: 1;padding-right: 0.1cm;font-family: calibri, sans-serif !important;">
-                        D. No. 0<?= htmlspecialchars($info['doc_no'] ?? $sl_no) ?>
+                        D. No. <?= htmlspecialchars($info['doc_no'] ?? $sl_no) ?>
                     </td>
                 </tr>
             </table>

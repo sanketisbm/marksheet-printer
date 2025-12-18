@@ -11,17 +11,18 @@ if (empty($data) || !is_array($data)) {
     $env = $envArray[2] . $envArray[3];
     if ($env === "01" || $env === "11") {
         $initials = "He";
+        $initials2 = "him";
     } elseif ($env === "02" || $env === "12") {
         $initials = "She";
+        $initials2 = "her";
     }
 ?>
-    <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>">
+    <div class="doc-container" id="<?= htmlspecialchars($info['enrollment_no']) ?>" style="font-family: 'Times New Roman', Times, serif !important;">
         <div style="margin-top:4.5cm; display: flex; flex-direction:column;">
             <p style="font-size: 12pt;font-weight: 400;width:17cm;text-align:right;">
                 Date: <?= htmlspecialchars($info['print_date'] ?? date('d-m-Y')) ?> </p>
 
-            <p class="text-center"
-                style="margin-top: 1.5cm;font-size: 14pt;font-weight: bold;text-decoration: underline;width:17cm">
+            <p class="text-center" style="margin-top: 1.5cm;font-size: 14pt;text-decoration: underline;width:17cm">
                 Letter of Recommendation
             </p>
 
@@ -31,12 +32,11 @@ if (empty($data) || !is_array($data)) {
                     <?= htmlspecialchars($info['professor_desg'] ?? '-') ?> - Department of
                     <?= htmlspecialchars($info['professor_dept'] ?? '-') ?> - ISBM University, India. I am writing this
                     letter to recommend my student
-                    <?= htmlspecialchars($info['student_name'] ?? '-') ?> for a place on the
-                    master programme offered by your
+                    <?= htmlspecialchars(titleCase($info['student_name']) ?? '-') ?> for a place in programme offered by your
                     institution. </p>
 
                 <p style="font-size: 12pt;margin-bottom: 10pt;line-height: 1.25;">
-                    <?= htmlspecialchars($info['student_name'] ?? '-') ?> has completed
+                    <?= htmlspecialchars(titleCase($info['student_name']) ?? '-') ?> has completed
                     <?= htmlspecialchars($info['program'] ?? '-') ?> with first
                     division. <?= htmlspecialchars($initials ?? 'He/She') ?> is a
                     hard-working student and has good
@@ -44,11 +44,11 @@ if (empty($data) || !is_array($data)) {
                     attentive and punctual. <?= htmlspecialchars($initials ?? 'He/She') ?> is capable of
                     successfully completing multiple tasks with favourable results despite deadline pressure.</p>
 
-                <p style="font-size: 12pt;margin-bottom: 10pt;line-height: 1.25;">I wish all the very best for the academic
-                    pursuits and would like to recommend for a place master’s programme in your institution.</p>
+                <p style="font-size: 12pt;margin-bottom: 10pt;line-height: 1.25;">I wish <?= htmlspecialchars(titleCase($info['student_name']) ?? '-') ?> all the very best for the academic
+                    pursuits and would like to recommend <?= htmlspecialchars($initials2 ?? 'him/her') ?> for further studies in your institution.</p>
 
                 <p style="font-size: 12pt;margin-bottom: 10pt;line-height: 1.25;">I hope
-                    <?= htmlspecialchars($info['student_name'] ?? '-') ?> gets to study the
+                    <?= htmlspecialchars(titleCase($info['student_name']) ?? '-') ?> gets to study the
                     preferred course. </p>
 
                 <p style="font-size: 12pt;margin-bottom: 10pt;line-height: 1.25;">Thanking you. </p>
