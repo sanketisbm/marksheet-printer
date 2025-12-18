@@ -39,22 +39,6 @@
         font-style: normal;
     }
 
-    @font-face {
-        font-family: 'KrutiDev';
-        src: url('assets/fonts/Kruti Dev 010 Bold.ttf') format('truetype');
-        /* Replace with actual font path */
-        font-weight: bold;
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: 'Nirmala UI';
-        src: url('assets/fonts/Nirmala.ttf') format('truetype');
-        /* Path to the regular font */
-        font-weight: normal;
-        font-style: normal;
-    }
-
     /* Dompdf page box – no margins */
     @page {
         margin: 0cm;
