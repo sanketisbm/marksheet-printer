@@ -306,7 +306,6 @@ foreach ($data as $record) {
     }
     // print_r($escaped_values);
     // Ensure print_flag is set to 0
-    $escaped_values['print_flag'] = '0';
     $application_id = $escaped_values['application_id'];
     $period = $escaped_values['period'];
     $sl_no = $escaped_values['sl_no'];
@@ -327,9 +326,6 @@ foreach ($data as $record) {
                 $value_list[] = "'" . mysqli_real_escape_string($conn, $escaped_values[$column]) . "'";
             }
         }
-        // Explicitly include print_flag
-        $column_list[] = "`print_flag`";
-        $value_list[] = "'0'";
 
         $insert_query = "INSERT INTO `results` (" . implode(", ", $column_list) . ") VALUES (" . implode(", ", $value_list) . ")";
         $insert_result = mysqli_query($conn, $insert_query);
@@ -352,7 +348,6 @@ foreach ($data as $record) {
                 $update_fields[] = "`$column` = '" . mysqli_real_escape_string($conn, $escaped_values[$column]) . "'";
             }
         }
-        $update_fields[] = "`print_flag` = '0'";
 
         // Build the update query
         $update_query = "UPDATE `results` SET " . implode(", ", $update_fields) . " WHERE `sl_no` = '$sl_no'";

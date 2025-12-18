@@ -184,8 +184,8 @@ foreach ($data as $info):
                                font-size: 24pt;
                                padding: 0;
                                padding-top: 0.5cm !important;
-                               font-family:Mangal, sans-serif !important;line-height: 0.5;">
-                        <?= htmlspecialchars($info['student_name_hindi'] ?? '-') ?>
+                               font-family:KrutiDev, sans-serif !important;line-height: 0.5;">
+                        <?= htmlspecialchars(unicode_to_krutidev($info['student_name_hindi']) ?? '-') ?>
                     </td>
                 </tr>
 
@@ -193,9 +193,9 @@ foreach ($data as $info):
                     <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 16pt;
                                padding: 0;
-                               font-family:Mangal, sans-serif !important;line-height: 1;">
-                        <?= htmlspecialchars($info['prefix_hindi'] ?? '-') ?>
-                        <?= htmlspecialchars($info['father_name_hindi'] ?? '-') ?>
+                               font-family:KrutiDev, sans-serif !important;line-height: 1;">
+                        <?= htmlspecialchars(unicode_to_krutidev($info['prefix_hindi']) ?? '-') ?>
+                        <?= htmlspecialchars(unicode_to_krutidev($info['father_name_hindi']) ?? '-') ?>
                     </td>
                 </tr>
 
@@ -214,8 +214,8 @@ foreach ($data as $info):
                     <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 20pt;
                                padding: 0 !important;
-                               font-family:Mangal, sans-serif !important;line-height: 1;">
-                        <?= htmlspecialchars($info['program_name_hindi'] ?? '-') ?>
+                               font-family:KrutiDev, sans-serif !important;line-height: 1;">
+                        <?= htmlspecialchars(unicode_to_krutidev($info['program_name_hindi']) ?? '-') ?>
                     </td>
                 </tr>
 
@@ -227,8 +227,8 @@ foreach ($data as $info):
                                padding-left: 1cm !important;
                                padding-right: 1cm !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
-                        gsrq izLrqr 'ksk/k&izca/k bl fo'ofo|ky; }kjk <?= htmlspecialchars($info['passout_session_hindi'] ?? '-') ?> esa Lohdkj fd;k x;k] mUgs vkt
-                        <?= htmlspecialchars($info['department_hindi'] ?? '-') ?> ds varxZr <?= htmlspecialchars($info['splz_name_hindi'] ?? '-') ?> fo"k; esa MkWDVj vkQ fQ+ykWlQ+h dh
+                        gsrq izLrqr 'ksk/k&izca/k bl fo'ofo|ky; }kjk <?= htmlspecialchars(unicode_to_krutidev($info['passout_session_hindi']) ?? '-') ?> esa Lohdkj fd;k x;k] mUgs vkt
+                        <?= htmlspecialchars($info['department_hindi'] ?? '-') ?> ds varxZr <?= htmlspecialchars(unicode_to_krutidev($info['splz_name_hindi']) ?? '-') ?> fo"k; esa MkWDVj vkQ fQ+ykWlQ+h dh
                         mikf/k iznku dh tkrh gSA
                     </td>
                 </tr>

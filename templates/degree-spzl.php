@@ -188,8 +188,8 @@ foreach ($data as $info):
                                font-size: 24pt;
                                padding: 0;
                                padding-top: 0.3cm !important;
-                               font-family:Mangal, sans-serif !important;line-height: 0.5;">
-                        <?= htmlspecialchars($info['student_name_hindi'] ?? '-') ?>
+                               font-family: NotoSansDevanagari, Mangal, sans-serif !important;line-height: 0.5;">
+                        <?= htmlspecialchars($info['student_name_hindi'] ?? '-', ENT_QUOTES, 'UTF-8') ?>
                     </td>
                 </tr>
 
@@ -197,9 +197,9 @@ foreach ($data as $info):
                     <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 16pt;
                                padding: 0;
-                               font-family:Mangal, sans-serif !important;line-height: 1;">
-                        <?= htmlspecialchars($info['prefix_hindi'] ?? '-') ?>
-                        <?= htmlspecialchars($info['father_name_hindi'] ?? '-') ?>
+                               font-family: NotoSansDevanagari, Mangal, sans-serif !important;line-height: 1;">
+                        <?= htmlspecialchars($info['prefix_hindi'] ?? '-', ENT_QUOTES, 'UTF-8') ?>
+                        <?= htmlspecialchars($info['father_name_hindi'] ?? '-', ENT_QUOTES, 'UTF-8') ?>
                     </td>
                 </tr>
 
@@ -218,8 +218,8 @@ foreach ($data as $info):
                     <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 20pt;
                                padding: 0 !important;
-                               font-family:Mangal, sans-serif !important;line-height: 1;">
-                        <?= htmlspecialchars($info['program_name_hindi'] ?? '-') ?>
+                               font-family: NotoSansDevanagari, Mangal, sans-serif !important;line-height: 1;">
+                        <?= htmlspecialchars($info['program_name_hindi'] ?? '-', ENT_QUOTES, 'UTF-8') ?>
                     </td>
                 </tr>
 
@@ -227,8 +227,8 @@ foreach ($data as $info):
                     <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 16pt;
                                padding: 0 !important;
-                               font-family:Mangal, sans-serif !important;line-height: 0.5;">
-                        <?= htmlspecialchars($info['splz_name_hindi'] ?? '-') ?>
+                               font-family: NotoSansDevanagari, Mangal, sans-serif !important;line-height: 0.5;">
+                        <?= htmlspecialchars($info['splz_name_hindi'] ?? '-', ENT_QUOTES, 'UTF-8') ?>
                     </td>
                 </tr>
 
@@ -241,8 +241,8 @@ foreach ($data as $info):
                                padding-right: 1cm !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
                         dh mikfèk
-                        <span style="font-family: Mangal, sans-serif !important; font-size: 9pt !important;">
-                            <?= htmlspecialchars($info['passout_session_hindi'] ?? '-') ?></span>
+                        <span style="font-family:  NotoSansDevanagari, Mangal, sans-serif !important; font-size: 9pt !important;">
+                            <?= htmlspecialchars($info['passout_session_hindi'] ?? '-', ENT_QUOTES, 'UTF-8') ?></span>
                         esa vk;ksftr ijh{kk <b><?= htmlspecialchars($divisionHiKruti ?? '-') ?></b>
                         Js.kh esa mÙkh.kZ djus ds
                         mijkar vkt fnukad dks
