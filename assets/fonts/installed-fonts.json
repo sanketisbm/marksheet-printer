@@ -5,7 +5,10 @@
     },
     "krutidev": {
         "normal": "C:\\xampp\\htdocs\\marksheet-printer\/assets\/fonts\/\/krutidev_normal_b798354d339a57587518424323e81179",
-        "bold": "krutidev_bold_d3dbfe2b1940d3f5792a6305d8e57d80"
+        "bold": "krutidev_bold_d3dbfe2b1940d3f5792a6305d8e57d80",
+        "300": "C:\\xampp\\htdocs\\marksheet-printer\/assets\/fonts\/\/krutidev_300_b798354d339a57587518424323e81179",
+        "500": "C:\\xampp\\htdocs\\marksheet-printer\/assets\/fonts\/\/krutidev_500_b798354d339a57587518424323e81179",
+        "600": "C:\\xampp\\htdocs\\marksheet-printer\/assets\/fonts\/\/krutidev_600_b798354d339a57587518424323e81179"
     },
     "nirmala ui": {
         "normal": "nirmala_ui_normal_ae0099418cd94716933290aaf406e532"

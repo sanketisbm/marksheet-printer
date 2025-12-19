@@ -45,6 +45,10 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
                                             aria-controls="documentRequestsTableTable" type="button" data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="" data-bs-original-title="Filters"
                                             aria-label="Filters"><span></span></button>
+                                        <button class="btn btn-primary mdi mdi-upload upload-pics" tabindex="0"
+                                            aria-controls="documentRequestsTableTable" type="button" data-bs-toggle="tooltip"
+                                            data-bs-placement="top" title="" data-bs-original-title="Upload Pictures"
+                                            aria-label="Upload Pictures"><span></span></button>
                                         <button class="btn btn-primary mdi mdi-download download-csv" tabindex="0"
                                             aria-controls="documentRequestsTableTable" type="button" data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="" data-bs-original-title="Download"
@@ -154,6 +158,34 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
         </div>
     </div>
 
+    <!-- Upload Multiple Images Modal -->
+    <div class="modal fade" id="uploadMultipleImagesModal" tabindex="-1">
+        <div class="modal-dialog">
+            <form id="uploadMultipleImagesForm" enctype="multipart/form-data" class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload Multiple Images</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="enrollmentNo" id="multiEnrollmentNo">
+
+                    <label class="form-label">Choose Images</label>
+                    <input type="file" name="images[]" class="form-control" accept="image/*" multiple required>
+
+                    <small class="text-muted d-block mt-2">
+                        Tip: You can select multiple images at once.
+                    </small>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
 
     <?php
     include 'assets/partials/plugins_js.html';
@@ -203,7 +235,7 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
                 accessRow = `<input type="checkbox" value="${item.id || ''}" name="check" class="check">`;
             }
 
-            if (["DEGREE SPZL", "DEGREE PHD", "DEGREE WITHOUT SPZL", "DIPLOMA WITHOUT SPZL"].includes(item.request_type)) {
+            if (["DEGREE SPZL", "DEGREE PHD", "DEGREE WITHOUT SPZL", "DEGREE WITHOUT SPZL NEW", "DIPLOMA WITHOUT SPZL"].includes(item.request_type)) {
                 uploadBtn = `
             <button class="btn btn-sm btn-success upload-image-btn" data-id="${item.id}" data-env="${item.enrollment_no}">
                 Upload Image
@@ -478,6 +510,7 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
 
             $("#uploadImageModal").modal("show");
         });
+
         $("#uploadImageForm").on("submit", function(e) {
             e.preventDefault();
 
@@ -495,6 +528,41 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
                 },
                 error: function() {
                     alert("Error uploading image");
+                }
+            });
+        });
+
+        // open multiple upload modal
+        $(document).on("click", ".upload-pics", function() {
+            let enrollmentNo = $(this).data("env");
+            $("#multiEnrollmentNo").val(enrollmentNo);
+            $("#uploadMultipleImagesModal").modal("show");
+        });
+
+        // submit multiple upload
+        $("#uploadMultipleImagesForm").on("submit", function(e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+
+            $.ajax({
+                url: "dbFiles/upload_multiple_images.php",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function(res) {
+                    if (res.success) {
+                        alert(res.message || "Images uploaded!");
+                        $("#uploadMultipleImagesModal").modal("hide");
+                    } else {
+                        alert(res.message || "Upload failed!");
+                    }
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                    alert("Error uploading images");
                 }
             });
         });

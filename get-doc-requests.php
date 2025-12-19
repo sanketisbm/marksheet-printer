@@ -38,7 +38,6 @@ if (!is_array($data)) {
     exit;
 }
 
-// Columns your API supports (REMOVED duplicate passout_session_hindi)
 $columns = [
     'request_type',
     'student_name',
@@ -49,6 +48,7 @@ $columns = [
     'passing_year',
     'division',
     'specialization',
+    'print_flag',
     'mother_name',
     'professor',
     'professor_desg',
@@ -56,6 +56,12 @@ $columns = [
     'doc_no',
     'student_name_hindi',
     'father_name_hindi',
+    'qr_code_data',
+    'department',
+    'research_topic',
+    'uploaded_image',
+    'issued_date',
+    'print_date',
     'branch',
     'program_name_hindi',
     'splz_name_hindi',
@@ -63,10 +69,7 @@ $columns = [
     'division_hindi',
     'prefix_eng',
     'prefix_hindi',
-    'department_hindi',
-    'uploaded_image',
-    'print_date',
-    'issued_date'
+    'department_hindi'
 ];
 
 $results = [];

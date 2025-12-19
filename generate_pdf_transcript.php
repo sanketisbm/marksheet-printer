@@ -67,7 +67,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
 <style>
 @font-face {
     font-family: 'KrutiDev';
+    font-style: normal;
+    font-weight: 400;
     src: url('assets/fonts/KrutiDev.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'KrutiDev';
+    font-style: normal;
+    font-weight: 300;
+    src: url('assets/fonts/KrutiDev.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'KrutiDev';
+    font-style: normal;
+    font-weight: 500;
+    src: url('assets/fonts/KrutiDev.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'KrutiDev';
+    font-style: normal;
+    font-weight: 600;
+    src: url('assets/fonts/KrutiDev.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'KrutiDev';
+    font-style: normal;
+    font-weight: 700;
+    src: url('assets/fonts/KrutiDev.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'KrutiDev';
+    font-style: normal;
+    font-weight: bold;
+    src: url('assets/fonts/Kruti Dev 010 Bold.ttf') format('truetype');
 }
 @font-face {
     font-family: 'NirmalaUI';         /* alias without space */

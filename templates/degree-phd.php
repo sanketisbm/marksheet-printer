@@ -9,6 +9,11 @@ foreach ($data as $info):
     $sl_no = random_int(10000000000, 99999999999);
     $enroll = (string) ($info['enrollment_no'] ?? '');
     $division = (string) ($info['division'] ?? '');
+    $flag = "FALSE";
+    $envArray = str_split($info['enrollment_no']); // split into characters
+    if ($envArray[2] === "1") {
+        $flag = "TRUE";
+    }
 
     if ($division === "FIRST") {
         $divisionHiKruti = "çFke";
@@ -20,49 +25,48 @@ foreach ($data as $info):
         $divisionHiKruti = "fMfLVaD'ku";
     }
 ?>
-    <div class="doc-container" id="<?= htmlspecialchars($enroll) ?>" style="padding-left: 1.2cm !important;
+    <div class="doc-container" id="<?= htmlspecialchars($enroll) ?>" style="padding-left: 0.8cm !important;
                 padding-right: 1.2cm !important;
-                padding-top: 4.5cm !important;
+                padding-top: 4.2cm !important;
                 padding-bottom: 2cm !important;
                 ">
 
-        <div style="display: flex; flex-direction:column;">
-            <table style="width: 18.6cm !important;">
+        <div style="display: flex; flex-direction:column;position: relative;height:100%">
+            <table style="width: 18cm !important;margin-left: 0.8cm !important;">
                 <tr>
                     <td class="text-left" colspan="2" style="border:none !important;
-                        font-family: Mangal, sans-serif !important;
-                        font-size:9pt;line-height: 1;">
+                        font-family: KrutiDev, sans-serif !important;
+                        font-size:11pt;line-height: 1;">
                         iathdj.k la[;k
                     </td>
                 </tr>
                 <tr>
-                    <td style="border:none !important;
+                    <td
+                        style="border:none !important;
                                font-size:11pt;
                                font-weight:400;
-                               text-align: left !important;
-                               line-height: 1;
-                               font-family: calibri, sans-serif !important;">
+                               text-align: left !important;line-height: 1;font-family: calibri, sans-serif !important;">
                         Registration No.
                         <?= htmlspecialchars($enroll ?: '-') ?>
                     </td>
-                    <td style="border:none !important;
+                    <td class="text-right"
+                        style="border:none !important;
                                font-size:11pt;
                                font-weight:400;
-                               line-height: 1;
-                               padding-right: 0.1cm;
-                               font-family: calibri, sans-serif !important;">
-                        D. No. <?= htmlspecialchars($info['doc_no'] ?? $sl_no) ?>
+                               text-align: right !important;line-height: 1;font-family: calibri, sans-serif !important;">
+                        D. No.<?= htmlspecialchars($info['doc_no'] ?? $sl_no) ?>
                     </td>
                 </tr>
             </table>
 
-            <table style="width: 18.3cm !important;">
+            <table style="width: 18cm !important;margin-left: 0.5cm !important;margin-right: 0.5cm !important;">
                 <tr>
                     <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 13.5pt;
                                padding-top: 0.6cm !important;
                                line-height: 1;
-                               font-family: calibri, sans-serif !important;">
+                               font-family: calibri, sans-serif !important;
+                               padding-left: 0.3cm !important;">
                         This is to certify that the thesis submitted by
                     </td>
                 </tr>
@@ -92,7 +96,7 @@ foreach ($data as $info):
                             <tr>
                                 <td class="text-center"
                                     style="border:none !important;
-                                           font-size:15pt;line-height: 1;padding: 0 !important;font-family: calibri, sans-serif !important;">
+                                           font-size:15pt;line-height: 0.8;padding: 0 !important;font-family: calibri, sans-serif !important;">
                                     <?= htmlspecialchars($info['prefix_eng'] ?? 'S/o / D/o / W/o') ?>
                                     <?= htmlspecialchars(titleCase($info['fathers_husbands_name']) ?: '-') ?>
                                 </td>
@@ -107,19 +111,10 @@ foreach ($data as $info):
                                     for the Degree of
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="text-center"
-                                    style="border:none !important;
-                                           font-size:17.5pt;
-                                           font-weight: bold;line-height: 1;padding: 0 !important;font-family: calibri, sans-serif !important;">
-                                    <?= htmlspecialchars($info['program']) ?>
-                                </td>
-                            </tr>
                         </table>
                     </td>
 
-                    <td style="border:none !important;
-                               padding-right: 1cm !important;">
+                    <td style="border:none !important;">
                         <img src="uploaded_images/<?= urlencode($info['uploaded_image'] ?? '-') ?>"
                             style="width:2cm; height:2cm;" alt="Student Picture" />
                     </td>
@@ -127,26 +122,39 @@ foreach ($data as $info):
 
                 <tr>
                     <td class="text-center" colspan="3" style="border:none !important;
-                               font-size: 14.5pt;
-                               padding: 0;
-                               padding-top: 0.3cm !important;
-                               line-height: 1;
-                               font-family: calibri, sans-serif !important;">
-                        has been accepted by the University during the year <?= urlencode($info['passing_year'] ?? '-') ?>
-                        and he/she is awarded today the
-                        <b>Doctor of Philosophy</b> in the Subject <b><?= urlencode($info['specialization'] ?? '-') ?></b>
-                        Under the
-                        <b><?= urlencode($info['department'] ?? '-') ?></b>.
+                                font-size:17.5pt;
+                                font-weight: bold;
+                                padding: 0;
+                                line-height: 1;
+                                font-family: calibri, sans-serif !important;">
+                        Doctor of Philosophy
                     </td>
                 </tr>
 
                 <tr>
                     <td class="text-center" colspan="3" style="border:none !important;
-                               font-weight: bold;
+                               font-size: 13pt;
+                               padding: 0;
+                               padding-top: 0.3cm !important;
+                               line-height: 1;
+                               font-family: calibri, sans-serif !important;">
+                        has been accepted by the University during the year
+                        <?= htmlspecialchars($info['passing_year'] ?? '-') ?>
+                        and he/she is awarded today the
+                        <b>Doctor of Philosophy</b> in the Subject
+                        <b><?= htmlspecialchars($info['specialization'] ?? '-') ?></b>
+                        Under the <br> <b><?= htmlspecialchars($info['department'] ?? '-') ?></b>.
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 35pt;
                                padding: 0;
                                padding-top: 0.5cm !important;
-                               font-family:KrutiDev, sans-serif !important;line-height: 1;">
+                               font-family:KrutiDev, sans-serif !important;
+                               font-weight: 600;
+                               line-height: 1;">
                         vkÃ-,l-ch-,e- fo'ofo|ky;
                     </td>
                 </tr>
@@ -155,13 +163,13 @@ foreach ($data as $info):
                     <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 9pt;
                                padding: 0 !important;
-                               font-family:KrutiDev, sans-serif !important;line-height: 0.5;">
+                               font-family:KrutiDev, sans-serif !important;line-height: 0.9;">
                         NÙkhlx<+ futh fo'ofo|ky; ¼LFkkiuk ,oa lapkyu½ vf/kfu;e] <span
-                            style="font-family: Mangal, sans-serif !important; font-size: 9pt !important;">२००५</span>
+                            style="font-family: Mangal, sans-serif !important; font-size: 7pt !important;">२००५</span>
                             ,oa fo'ofo|ky; vuqnku vk;ksx ¼;w-th-lh-½ vf/kfu;e
-                            <span style="font-family: Mangal, sans-serif !important; font-size: 9pt !important;">१९५६</span>
+                            <span style="font-family: Mangal, sans-serif !important; font-size: 7pt !important;">१९५६</span>
                             dh /kkjk
-                            <span style="font-family: Mangal, sans-serif !important; font-size: 9pt !important;">२</span>¼
+                            <span style="font-family: Mangal, sans-serif !important; font-size: 7pt !important;">२</span>¼
                             ,Q½ vUrxZr LFkkfir
                     </td>
                 </tr>
@@ -173,9 +181,9 @@ foreach ($data as $info):
                                padding-top: 0.3cm !important;
                                padding-left: 1.5cm !important;
                                padding-right: 1.5cm !important;
+                                font-weight: 300 !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
-                        vdknfed ifj"kn dh laLrqfr ij] rFkk vè;kns'kkuqlkj fuèkkZfjr vgrkZvksa dks
-                        lQyrkiwoZd iw.kZ djus ij
+                        çekf.kr fd;k tkrk gS fd
                     </td>
                 </tr>
 
@@ -183,8 +191,10 @@ foreach ($data as $info):
                     <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 24pt;
                                padding: 0;
-                               padding-top: 0.5cm !important;
-                               font-family:KrutiDev, sans-serif !important;line-height: 0.5;">
+                               padding-top: 0.4cm !important;
+                               font-family:KrutiDev, sans-serif !important;
+                               font-weight: 700;
+                               line-height: 0.8;">
                         <?= htmlspecialchars(unicode_to_krutidev($info['student_name_hindi']) ?? '-') ?>
                     </td>
                 </tr>
@@ -193,55 +203,51 @@ foreach ($data as $info):
                     <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 16pt;
                                padding: 0;
+                               font-weight: 300 !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
-                        <?= htmlspecialchars(unicode_to_krutidev($info['prefix_hindi']) ?? '-') ?>
+                        <?= htmlspecialchars($info['prefix_hindi'] ?? '-') ?>
                         <?= htmlspecialchars(unicode_to_krutidev($info['father_name_hindi']) ?? '-') ?>
                     </td>
                 </tr>
 
                 <tr>
                     <td class="text-center" colspan="3" style="border:none !important;
-                               font-size: 14pt;
-                               padding: 0 !important;
-                               padding-top: 0.2cm;
-                                padding-bottom: 0.2cm;
-                               font-family:KrutiDev, sans-serif !important;line-height: 1;">
+                                font-size: 14pt;
+                                line-height: 0;
+                                padding: 0 !important;
+                                padding-top: 0.3cm !important;
+                                padding-bottom: 0.2cm !important;
+                                font-weight: 300 !important;
+                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
                         dks
                     </td>
                 </tr>
 
                 <tr>
                     <td class="text-center" colspan="3" style="border:none !important;
-                               font-size: 20pt;
+                               font-size: 15pt;
                                padding: 0 !important;
+                               padding-top: 0.3cm !important;
+                               font-weight: 300 !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
-                        <?= htmlspecialchars(unicode_to_krutidev($info['program_name_hindi']) ?? '-') ?>
+                        gsrq izLrqr 'ksk/k&izca/k bl fo'ofo|ky; }kjk
+                        <?= htmlspecialchars($info['passout_session_hindi'] ?? '-') ?> esa Lohdkj fd;k
+                        x;k] mUgs vkt
+                        <span style="font-weight:700;"><?= htmlspecialchars($info['department_hindi'] ?? '-') ?></span>
+                        ds varxZr
+                        <span style="font-weight:700;"><?= htmlspecialchars($info['splz_name_hindi'] ?? '-') ?></span>
+                        fo"k; esa <span style="font-weight:700;">MkWDVj vkQ fQ+ykWlQ+h</span> dh mikf/k iznku dh tkrh gSA
                     </td>
                 </tr>
-
                 <tr>
                     <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 15pt;
                                padding: 0 !important;
                                padding-top: 0.5cm !important;
-                               padding-left: 1cm !important;
-                               padding-right: 1cm !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
-                        gsrq izLrqr 'ksk/k&izca/k bl fo'ofo|ky; }kjk <?= htmlspecialchars(unicode_to_krutidev($info['passout_session_hindi']) ?? '-') ?> esa Lohdkj fd;k x;k] mUgs vkt
-                        <?= htmlspecialchars($info['department_hindi'] ?? '-') ?> ds varxZr <?= htmlspecialchars(unicode_to_krutidev($info['splz_name_hindi']) ?? '-') ?> fo"k; esa MkWDVj vkQ fQ+ykWlQ+h dh
-                        mikf/k iznku dh tkrh gSA
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="text-center" colspan="3" style="border:none !important;
-                               font-size: 15pt;
-                               padding: 0 !important;
-                               padding-top: 0.5cm !important;
-                               padding-left: 1cm !important;
-                               padding-right: 1cm !important;
-                               font-family:KrutiDev, sans-serif !important;line-height: 1;">
-                        'kks/k&izca/k dk fo"k; (Title of Research) “<?= htmlspecialchars($info['research_topic'] ?? '-') ?>”
+                        'kks/k&izca/k dk fo"k; <span
+                            style="font-family: calibri, sans-serif !important;font-size: 13pt;">(Title of Research)<span>
+                                “<?= htmlspecialchars($info['research_topic'] ?? '-') ?>”
                     </td>
                 </tr>
 
@@ -249,36 +255,39 @@ foreach ($data as $info):
                     <td class="text-left" colspan="3" style="border:none !important;
                                font-size: 11pt;
                                padding: 0 !important;
-                               padding-left: 0.5cm !important;
-                               padding-top: 0.5cm !important;
+                               padding-left: 0.8cm !important;
+                               padding-top: 0.7cm !important;
                                line-height: 1;font-family: calibri, sans-serif !important;">
                         Date: <?= htmlspecialchars($info['print_date']) ?>
                     </td>
                 </tr>
             </table>
-
-            <table style="width: 18.6cm !important;">
-                <tr>
-                    <td style="border:none !important;
+            
+            <?php if ($flag === "TRUE") { ?>
+                <table
+                    style="width: 18cm !important;margin-left: 0.5cm !important;margin-right: 0.5cm !important;margin-top: 1cm !important;position:absolute;bottom:4.4cm">
+                    <tr>
+                        <td style="border:none !important;
                                font-size:11pt;
                                font-weight:400;
                                text-align: left !important;
                                line-height: 1;
-                               padding-left: 0.3cm;
-                               padding-top: 0.5cm;">
-                        <img src="sign/registrar.png" style="width: 5cm;" alt="" />
-                    </td>
-                    <td class="text-right" style="border:none !important;
+                               padding-left: 1cm;
+                               padding-top: 0cm;">
+                            <img src="sign/registrar.png" style="width: 5cm;" alt="" />
+                        </td>
+                        <td class="text-right" style="border:none !important;
                                font-size:11pt;
                                font-weight:400;
                                text-align: right !important;
                                line-height: 1;
                                padding-right: 0.3cm;
-                               padding-top: 0.5cm;">
-                        <img src="sign/vc.png" style="width: 5cm;" alt="" />
-                    </td>
-                </tr>
-            </table>
+                               padding-top: 0cm;">
+                            <img src="sign/vc.png" style="width: 5cm;" alt="" />
+                        </td>
+                    </tr>
+                </table>
+            <?php } ?>
         </div>
     </div>
 <?php endforeach; ?>

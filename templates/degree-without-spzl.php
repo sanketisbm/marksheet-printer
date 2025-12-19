@@ -9,6 +9,11 @@ foreach ($data as $info):
     $sl_no = random_int(10000000000, 99999999999);
     $enroll = (string) ($info['enrollment_no'] ?? '');
     $division = (string) ($info['division'] ?? '');
+    $flag = "FALSE";
+    $envArray = str_split($info['enrollment_no']); // split into characters
+    if ($envArray[2] === "1") {
+        $flag = "TRUE";
+    }
 
     if ($division === "FIRST") {
         $divisionHiKruti = "çFke";
@@ -108,19 +113,6 @@ foreach ($data as $info):
                                     Has this day been conferred the Degree of
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="text-center"
-                                    style="border:none !important;
-                                           font-size:17.5pt;
-                                           font-weight: bold;
-                                           line-height: 0;
-                                           padding: 0 !important;
-                                            padding-top: 0.9cm !important;
-                                           padding-bottom: 0.2cm !important;
-                                           font-family: calibri, sans-serif !important;">
-                                    <?= htmlspecialchars($info['program']) ?>
-                                </td>
-                            </tr>
                         </table>
                     </td>
 
@@ -133,9 +125,24 @@ foreach ($data as $info):
                 <tr>
                     <td class="text-center" colspan="3"
                         style="border:none !important;
+                                           font-size:17.5pt;
+                                           font-weight: bold;
+                                padding: 0;
+                               padding-top: 0.3cm !important;
+                               line-height: 1;
+                               font-family: calibri, sans-serif !important;">
+                        <?= htmlspecialchars($info['program']) ?>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="text-center" colspan="3"
+                        style="border:none !important;
                                font-size: 14.5pt;
                                padding: 0;
-                               padding-top: 0.3cm !important;line-height: 1;font-family: calibri, sans-serif !important;">
+                               padding-top: 0.3cm !important;
+                               line-height: 1;
+                               font-family: calibri, sans-serif !important;">
                         on having passed the Examination held in
                         <?= htmlspecialchars($info['passing_year'] ?: '-') ?> with
                         <b><?= htmlspecialchars(titleCase($info['division']) ?: '-') ?></b> Division.
@@ -147,7 +154,9 @@ foreach ($data as $info):
                                font-size: 35pt;
                                padding: 0;
                                padding-top: 0.8cm !important;
-                               font-family:KrutiDev, sans-serif !important;line-height: 1;">
+                               font-family:KrutiDev, sans-serif !important;
+                               font-weight: 600;
+                               line-height: 1;">
                         vkÃ-,l-ch-,e- fo'ofo|ky;
                     </td>
                 </tr>
@@ -174,6 +183,7 @@ foreach ($data as $info):
                                padding-top: 0.3cm !important;
                                padding-left: 1.5cm !important;
                                padding-right: 1.5cm !important;
+                                font-weight: 300 !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
                         vdknfed ifj"kn dh laLrqfr ij] rFkk vè;kns'kkuqlkj fuèkkZfjr vgrkZvksa dks
                         lQyrkiwoZd iw.kZ djus ij
@@ -185,7 +195,9 @@ foreach ($data as $info):
                                font-size: 24pt;
                                padding: 0;
                                padding-top: 0.4cm !important;
-                               font-family:KrutiDev, sans-serif !important;line-height: 0.8;">
+                               font-family:KrutiDev, sans-serif !important;
+                               font-weight: 700;
+                               line-height: 0.8;">
                         <?= htmlspecialchars(unicode_to_krutidev($info['student_name_hindi']) ?? '-') ?>
                     </td>
                 </tr>
@@ -194,8 +206,9 @@ foreach ($data as $info):
                     <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 16pt;
                                padding: 0;
+                               font-weight: 300 !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
-                        <?= htmlspecialchars(unicode_to_krutidev($info['prefix_hindi']) ?? '-') ?>
+                        <?= htmlspecialchars($info['prefix_hindi'] ?? '-') ?>
                         <?= htmlspecialchars(unicode_to_krutidev($info['father_name_hindi']) ?? '-') ?>
                     </td>
                 </tr>
@@ -207,6 +220,7 @@ foreach ($data as $info):
                                 padding: 0 !important;
                                 padding-top: 0.3cm !important;
                                 padding-bottom: 0.2cm !important;
+                                font-weight: 300 !important;
                                 font-family:KrutiDev, sans-serif !important;line-height: 1;">
                         dks
                     </td>
@@ -216,8 +230,10 @@ foreach ($data as $info):
                     <td class="text-center" colspan="3" style="border:none !important;
                                font-size: 20pt;
                                padding: 0 !important;
-                               font-family:KrutiDev, sans-serif !important;line-height: 1;">
-                        <?= htmlspecialchars(unicode_to_krutidev($info['program_name_hindi']) ?? '-') ?>
+                               font-family:KrutiDev, sans-serif !important;
+                               font-weight: 700;
+                               line-height: 1;">
+                        <?= htmlspecialchars($info['program_name_hindi'] ?? '-') ?>
                     </td>
                 </tr>
 
@@ -228,11 +244,11 @@ foreach ($data as $info):
                                padding-top: 0.5cm !important;
                                padding-left: 1cm !important;
                                padding-right: 1cm !important;
+                               font-weight: 300 !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
                         dh mikfèk
-                        <span style="font-family: KrutiDev, sans-serif !important; font-size: 9pt !important;font-weight:500;">
-                            <?= htmlspecialchars(unicode_to_krutidev($info['passout_session_hindi']) ?? '-') ?></span>
-                        esa vk;ksftr ijh{kk <b><?= htmlspecialchars($divisionHiKruti ?? '-') ?></b>
+                        <?= htmlspecialchars($info['passout_session_hindi'] ?? '-') ?>
+                        esa vk;ksftr ijh{kk <span style="font-weight:700;"><?= htmlspecialchars($divisionHiKruti ?? '-') ?></span>
                         Js.kh esa mÙkh.kZ djus ds
                         mijkar vkt fnukad dks
                         çnku dh tkrh gSA
@@ -251,28 +267,30 @@ foreach ($data as $info):
                 </tr>
             </table>
 
-            <table style="width: 18cm !important;margin-left: 0.5cm !important;margin-right: 0.5cm !important;margin-top: 1cm !important;">
-                <tr>
-                    <td style="border:none !important;
+            <?php if ($flag === "TRUE") { ?>
+                <table style="width: 18cm !important;margin-left: 0.5cm !important;margin-right: 0.5cm !important;margin-top: 1cm !important;">
+                    <tr>
+                        <td style="border:none !important;
                                font-size:11pt;
                                font-weight:400;
                                text-align: left !important;
                                line-height: 1;
                                padding-left: 1cm;
                                padding-top: 0cm;">
-                        <img src="sign/registrar.png" style="width: 5cm;" alt="" />
-                    </td>
-                    <td class="text-right" style="border:none !important;
+                            <img src="sign/registrar.png" style="width: 5cm;" alt="" />
+                        </td>
+                        <td class="text-right" style="border:none !important;
                                font-size:11pt;
                                font-weight:400;
                                text-align: right !important;
                                line-height: 1;
                                padding-right: 0.3cm;
                                padding-top: 0cm;">
-                        <img src="sign/vc.png" style="width: 5cm;" alt="" />
-                    </td>
-                </tr>
-            </table>
+                            <img src="sign/vc.png" style="width: 5cm;" alt="" />
+                        </td>
+                    </tr>
+                </table>
+            <?php } ?>
         </div>
     </div>
 <?php endforeach; ?>
