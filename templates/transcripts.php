@@ -115,23 +115,6 @@ $student_info['grand_total_obt']  = $grand_total_obt;
 $student_info['percentage']       = $percentage;
 $student_info['doi']              = date('d/m/Y');
 
-if (!function_exists('formatSemester')) {
-    function formatSemester($period)
-    {
-        preg_match('/(\d+)/', $period, $matches);
-        if (!$matches) return $period;
-
-        $num = (int)$matches[1];
-
-        $suffix = "th";
-        if ($num % 10 == 1 && $num % 100 != 11) $suffix = "st";
-        elseif ($num % 10 == 2 && $num % 100 != 12) $suffix = "nd";
-        elseif ($num % 10 == 3 && $num % 100 != 13) $suffix = "rd";
-
-        return "{$num}{$suffix} Semester";
-    }
-}
-
 // Paging logic: split resultsByPeriod into pages
 $maxRowsFirstPage  = 52; // with student info
 $maxRowsOtherPages = 62; // without student info on later pages
@@ -313,7 +296,7 @@ $lastPageIndex = count($pages) - 1;
                         <tr>
                             <td colspan="8" class="text-start"
                                 style="font-family:calibri,sans-serif !important;font-size:8pt;padding-left:5px;border:1px solid #111 !important;line-height: 0.35cm;">
-                                <?= htmlspecialchars(formatSemester($period)) ?>
+                                <?= htmlspecialchars($period) ?>
                             </td>
                         </tr>
 

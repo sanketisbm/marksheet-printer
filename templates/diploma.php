@@ -198,7 +198,7 @@ foreach ($data as $info):
                                font-family:KrutiDev, sans-serif !important;
                                font-weight: 700;
                                line-height: 0.8;">
-                        <?= htmlspecialchars(unicode_to_krutidev($info['student_name_hindi']) ?? '-') ?>
+                        <?= htmlspecialchars($info['student_name_hindi'] ?? '-') ?>
                     </td>
                 </tr>
 
@@ -209,7 +209,7 @@ foreach ($data as $info):
                                font-weight: 300 !important;
                                font-family:KrutiDev, sans-serif !important;line-height: 1;">
                         <?= htmlspecialchars($info['prefix_hindi'] ?? '-') ?>
-                        <?= htmlspecialchars(unicode_to_krutidev($info['father_name_hindi']) ?? '-') ?>
+                        <?= htmlspecialchars($info['father_name_hindi'] ?? '-') ?>
                     </td>
                 </tr>
 

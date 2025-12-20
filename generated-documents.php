@@ -1971,7 +1971,7 @@ $renderedHtmls = documentRequests();
                 dataType: "json",
                 success: function(response) {
                     if (response.success) {
-                        //updatePrinted(ids);
+                        updatePrinted(ids);
                         alert("PDF generated successfully. Click OK to view.");
                         window.open(response.pdf_path, '_blank');
                     } else {

@@ -53,6 +53,11 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
                                             aria-controls="documentRequestsTableTable" type="button" data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="" data-bs-original-title="Download"
                                             aria-label="Download"><span></span></button>
+                                        <button class="btn btn-primary mdi mdi-pencil update-hindi-btn"
+                                            data-bs-toggle="tooltip"
+                                            title="Update Hindi Names">
+                                        </button>
+
                                     </div>
                                 </div>
 
@@ -181,6 +186,40 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
 
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Update Hindi Names Modal -->
+    <div class="modal fade" id="updateHindiModal" tabindex="-1">
+        <div class="modal-dialog">
+            <form id="updateHindiForm" class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Hindi Names</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="hindiRowId">
+
+                    <div class="mb-3">
+                        <label class="form-label">Student Name (Hindi)</label>
+                        <input type="text" name="student_name_hindi" id="studentNameHindi"
+                            class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Father Name (Hindi)</label>
+                        <input type="text" name="father_name_hindi" id="fatherNameHindi"
+                            class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
 
             </form>
@@ -563,6 +602,53 @@ if (!isset($_SESSION['employee_name']) && !isset($_SESSION['session_id'])) {
                 error: function(xhr) {
                     console.log(xhr.responseText);
                     alert("Error uploading images");
+                }
+            });
+        });
+
+        // Open update hindi modal
+        $(document).on("click", ".update-hindi-btn", function() {
+            let checked = $(".check:checked");
+
+            if (checked.length !== 1) {
+                alert("Please select exactly ONE student.");
+                return;
+            }
+
+            let row = checked.closest("tr");
+
+            let id = checked.val();
+            let studentHindi = row.find("td:eq(17)").text().trim(); // Student Name Hindi column
+            let fatherHindi = row.find("td:eq(18)").text().trim(); // Father Name Hindi column
+
+            $("#hindiRowId").val(id);
+            $("#studentNameHindi").val(studentHindi);
+            $("#fatherNameHindi").val(fatherHindi);
+
+            $("#updateHindiModal").modal("show");
+        });
+
+        // Submit update
+        $("#updateHindiForm").on("submit", function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: "dbFiles/update_hindi_names.php",
+                type: "POST",
+                data: $(this).serialize(),
+                dataType: "json",
+                success: function(res) {
+                    if (res.success) {
+                        alert("Hindi names updated successfully!");
+                        $("#updateHindiModal").modal("hide");
+                        fetch_data_tLeads(currentdateRange); // refresh table
+                    } else {
+                        alert(res.message || "Update failed!");
+                    }
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                    alert("Server error!");
                 }
             });
         });

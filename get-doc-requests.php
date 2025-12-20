@@ -48,7 +48,6 @@ $columns = [
     'passing_year',
     'division',
     'specialization',
-    'print_flag',
     'mother_name',
     'professor',
     'professor_desg',
