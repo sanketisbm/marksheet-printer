@@ -27,11 +27,11 @@ foreach ($data as $info):
 ?>
     <div class="doc-container" id="<?= htmlspecialchars($enroll) ?>" style="padding-left: 0.8cm !important;
                 padding-right: 1.2cm !important;
-                padding-top: 4.2cm !important;
+                padding-top: 4.4cm !important;
                 padding-bottom: 2cm !important;
                 ">
 
-        <div style="display: flex; flex-direction:column;">
+        <div style="ldisplay: flex; flex-direction:column;">
             <table style="width: 18cm !important;margin-left: 0.8cm !important;">
                 <tr>
                     <td class="text-left" colspan="2" style="border:none !important;
@@ -260,7 +260,7 @@ foreach ($data as $info):
                                font-size: 11pt;
                                padding: 0 !important;
                                padding-left: 0.8cm !important;
-                               padding-top: 0.9cm !important;
+                               padding-top: 1.2cm !important;
                                line-height: 1;font-family: calibri, sans-serif !important;">
                         Date: <?= htmlspecialchars($info['print_date']) ?>
                     </td>
@@ -268,7 +268,7 @@ foreach ($data as $info):
             </table>
 
             <?php if ($flag === "TRUE") { ?>
-                <table style="width: 18cm !important;margin-left: 0.5cm !important;margin-right: 0.5cm !important;margin-top: 1cm !important;">
+                <table style="width: 18cm !important;margin-left: 0.5cm !important;margin-right: 0.5cm !important;margin-top: 1.3cm !important;">
                     <tr>
                         <td style="border:none !important;
                                font-size:11pt;

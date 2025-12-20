@@ -27,7 +27,7 @@ foreach ($data as $info):
 ?>
     <div class="doc-container" id="<?= htmlspecialchars($enroll) ?>" style="padding-left: 0.8cm !important;
                 padding-right: 1.2cm !important;
-                padding-top: 4.2cm !important;
+                padding-top: 4.4cm !important;
                 padding-bottom: 2cm !important;
                 ">
 
@@ -234,7 +234,7 @@ foreach ($data as $info):
 
             <?php if ($flag === "TRUE") { ?>
                 <table
-                    style="width: 18cm !important;margin-left: 0.5cm !important;margin-right: 0.5cm !important;margin-top: 0.6cm !important;position:absolute;bottom:5.9cm">
+                    style="width: 18cm !important;margin-left: 0.5cm !important;margin-right: 0.5cm !important;margin-top: 0.6cm !important;position:absolute;bottom:6.2cm">
                     <tr>
                         <td style="border:none !important;
                                font-size:11pt;
